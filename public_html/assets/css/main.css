@@ -1,0 +1,343 @@
+:root
+{
+    --primary: #1e69a6 !important;
+    --primary-trans: rgba(30,105,166,.6) !important;
+    --blue: #0c4c91 !important;
+    --red: #ef6461;
+    --dark: #212529;
+    --fondo-card: #ecf5fd;
+    --main-bg-color: #1e69a6;
+    --main-bg-color-light: #528bb9;
+    --second-bg-color: #2379bf;
+    --second-bg-color-light: #3391dd;
+    --third-bg-color: #474444;
+    --yellow: #f0ab00;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    width: 100%;
+    margin-top: auto;
+}
+
+
+/* modulos menu principal*/
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.card-container a {
+    color: var(--dark);
+    text-decoration: none;
+    
+}
+
+.card-modulo:hover {
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.42);
+    -webkit-box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.42);
+    -moz-box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.42);
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -ms-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    transition: all 0.7s ease-in-out;
+}
+
+/* .end modulos menu principal*/
+
+.avatar img
+{
+    width: 100%;
+
+    border-radius: 50%;
+}
+
+.avatar-lg
+{
+    font-size: .875rem; 
+
+    width: 58px;
+    height: 58px;
+}
+
+.avatar-sm
+{
+    font-size: .875rem; 
+
+    width: 36px;
+    height: 36px;
+}
+
+
+
+
+
+@media (min-width: 768px)
+{
+    .navbar-vertical.navbar-expand-md.fixed-left + .main-content
+    {
+        margin-left: 250px;
+    }
+    .navbar-vertical.navbar-expand-md.fixed-right + .main-content
+    {
+        margin-right: 250px;
+    }
+}
+
+.navbar-vertical .navbar-brand
+{
+    margin-right: 0;
+}
+.navbar-vertical .navbar-brand-img,
+.navbar-vertical .navbar-brand > img
+{
+    max-width: 100%;
+    max-height: 2rem;
+}
+
+
+.navbar-vertical .navbar-nav .nav-link
+{
+    font-size: .9rem; 
+
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+
+.navbar-vertical .navbar-nav .nav-link > i
+{
+    font-size: .9375rem;
+    line-height: 1.5rem; 
+
+    min-width: 2.25rem;
+}
+.navbar-vertical .navbar-nav .nav-link
+{
+    display: flex;
+
+    align-items: center;
+}
+.navbar-vertical .navbar-nav .nav-link[data-toggle='collapse']:after
+{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 700;
+    font-style: normal;
+    font-variant: normal;
+
+    display: inline-block;
+
+    margin-left: auto;
+
+    content: '\f105';
+    transition: all .15s ease; 
+
+    color: #8898aa;
+
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.navbar-vertical .navbar-nav .nav-link[data-toggle='collapse'][aria-expanded='true']:after
+{
+    transform: rotate(90deg);
+}
+
+@media (min-width: 768px)
+{
+    .navbar-vertical.navbar-expand-md
+    {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+
+        display: block;
+        overflow-y: auto; 
+
+        width: 100%;
+        max-width: 250px;
+        padding-right: 1.5rem;
+        padding-left: 1.5rem;
+    }
+    .navbar-vertical.navbar-expand-md > [class*='container']
+    {
+        flex-direction: column;
+
+        min-height: 100%;
+        padding-right: 0; 
+        padding-left: 0;
+
+        align-items: stretch;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .navbar-vertical.navbar-expand-md.fixed-left
+    {
+        left: 0;
+
+        border-width: 0 1px 0 0;
+    }
+    .navbar-vertical.navbar-expand-md.fixed-right
+    {
+        right: 0;
+
+        border-width: 0 0 0 1px;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-collapse
+    {
+        display: flex;
+        flex-direction: column;
+
+        margin-right: -1.5rem;
+        margin-left: -1.5rem;
+        padding-right: 1.5rem; 
+        padding-left: 1.5rem;
+
+        flex: 1 1;
+        align-items: stretch;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-collapse > *
+    {
+        min-width: 100%;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-nav
+    {
+        flex-direction: column;
+
+        margin-right: -1.5rem; 
+        margin-left: -1.5rem;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-nav .nav-link
+    {
+        padding: .65rem 1.5rem;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-nav .nav-link.active:before
+    {
+        top: .25rem;
+        right: auto;
+        bottom: .25rem;
+        left: 0;
+
+        border-bottom: 0; 
+        border-left: 2px solid #5e72e4;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-nav .nav .nav-link
+    {
+        padding-left: 3.75rem;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-nav .nav .nav .nav-link
+    {
+        padding-left: 4.5rem;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-brand
+    {
+        display: block;
+
+        padding-top: 1rem;
+        padding-bottom: 1rem; 
+
+        text-align: center;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-brand-img
+    {
+        max-height: 2.5rem;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-user
+    {
+        margin-right: -1.5rem;
+        margin-left: -1.5rem;
+        padding-top: 1rem;
+        padding-right: 1.5rem;
+        padding-bottom: 0rem;
+        padding-left: 1.5rem;
+
+        border-top: 1px solid #e9ecef;
+    }
+    .navbar-vertical.navbar-expand-md .navbar-user .dropup .dropdown-menu
+    {
+        left: 50%;
+
+        transform: translateX(-50%);
+    }
+}
+
+/* estilos en las tablas */
+
+.table-responsive,
+.form-check-label,
+.card .btn,
+.card input {
+    font-size: 0.8rem;
+}
+.table-responsive td {
+    padding: 5px;
+}
+.table-responsive .btn {
+    padding: 2px 6px;
+}
+.table-responsive .fas.fa-edit,
+.table-responsive .fas.fa-trash-alt {
+    font-size: 0.7rem;
+}
+.card .card-header.bg-primary {
+    padding: 10px 20px;
+}
+
+.table-responsive h4 {
+    font-size: 1rem;
+}
+.card label {
+    font-size: 0.8rem;
+}
+
+.td-options .btn-warning {
+    color: white;
+}
+
+.text-body {
+    color: #ffffff;
+}
+/* ./ fin estilos en las tablas */
+
+/*David Flores - Paginacion*/
+.pagination {
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+}
+
+.pagination a {
+    color: #0068b3;
+    float: left;
+    padding: 6px 10px;
+    text-decoration: none;
+}
+
+.pagination .active {
+    background-color: #0068b3;
+}
+
+.pagination .active a {
+    color: white;
+}
+
+.pagination li:hover:not(.active) {
+    background-color: #ddd;
+}
+/*Fin David Flores -  Paginacion*/
+
+
+
+
+
+

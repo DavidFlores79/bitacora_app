@@ -1,0 +1,39 @@
+<?php
+return [
+    //Estatus
+    "ESTATUS_REGISTRADO" => 1,
+    "ESTATUS_ASIGNADO" => 2,
+    "ESTATUS_ENESPERA" => 3,
+    "ESTATUS_ENPROCESO" => 4,
+    "ESTATUS_RESUELTO" => 5,
+    "ESTATUS_VENCIDO" => 6,
+    "ESTATUS_CERRADO" => 7,
+    "ESTATUS_ELIMINADO" => 8,
+
+    //Acciones
+    "ACCION_CREO" => 1,
+    "ACCION_ASIGNO" => 2,
+    "ACCION_MODIFICO" => 3,
+
+    //Tipo acción
+    "TIPOACCION_RESPONSABLE" => 1,
+    "TIPOACCION_ESTATUS" => 2,
+    "TIPOACCION_SEGUIMIENTO" => 3,
+    "TIPOACCION_PRIORIDAD" => 4,
+    "TIPOACCION_PROYECTO" => 5,
+    "TIPOACCION_TIPO" => 6,
+    "TIPOACCION_SERVICIO" => 7,
+
+    //Tipo ticket
+    "TIPOTICKET_INCIDENTE" => 1,
+    "TIPOTICKET_REQUERIMIENTO" => 2,
+
+    //Modulos
+    "MODULO_INCIDENTES" => 1,
+    "MODULO_REQUERIMIENTOS" => 2,
+    "MODULO_GESTIONDETICKETS" => 3,
+    "MODULO_ADMONUSUARIOS" => 4,
+    "MODULO_BITACORA" => 5,
+
+
+];

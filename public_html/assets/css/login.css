@@ -1,0 +1,24 @@
+.imagen_fondo{
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+#header_login{
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.login-container{
+  z-index: 10000000000;
+}
+      
