@@ -15,14 +15,13 @@ return new class extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('categoria_id')->unsigned();
-            $table->string('descripcion');
+            $table->string('nombre');
             $table->boolean('estatus')->default(true);
             $table->timestamps();
         });
-        Schema::table('servicios', function($table) {
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
-        });
+        // Schema::table('servicios', function($table) {
+        //     $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+        // });
     }
 
     /**

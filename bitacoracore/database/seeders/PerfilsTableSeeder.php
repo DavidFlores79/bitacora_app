@@ -18,8 +18,9 @@ class PerfilsTableSeeder extends Seeder
         $perfiles = [
             'SuperUsuario',
             'Administrador',
-            'Empleado',
+            'Seguridad',
             'Cliente',
+            'Supervisor',
         ];
         foreach ($perfiles as $perfil) {
             DB::table('perfils')->insert([

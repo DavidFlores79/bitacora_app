@@ -18,7 +18,7 @@ class ModuloPerfilPermisoTableSeeder extends Seeder
     {
 
         //Crea los permisos iniciales para Helpdesk
-        $perfil = Perfil::where('nombre', 'Empleado')->first();
+        $perfil = Perfil::where('nombre', 'Seguridad')->first();
 
         for ($j = 8; $j <= 8; $j++) {
             for ($i = 1; $i <= 4; $i++) {

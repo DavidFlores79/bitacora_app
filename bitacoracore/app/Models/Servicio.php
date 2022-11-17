@@ -10,7 +10,4 @@ class Servicio extends Model
     use HasFactory;
     protected $table = 'servicios';
 
-    public function categoria(){
-        return $this->belongsTo(Categoria::class, "categoria_id");
-    }
 }
