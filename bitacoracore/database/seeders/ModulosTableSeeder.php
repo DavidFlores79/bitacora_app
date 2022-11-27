@@ -35,10 +35,10 @@ class ModulosTableSeeder extends Seeder
 
         DB::table('modulos')->insert([
             "categoria_modulo_id" => 1,
-            "nombre" => "Tipos de Vehiculo",
+            "nombre" => "Tipo de Vehiculos",
             "funcionalidad" => "Modulo para CRUD de Tipos de Vehiculo",
             "icono" => "ni-chart-bar-32 text-secondary",
-            "ruta" => "tipos-vehiculos",
+            "ruta" => "tipo-vehiculos",
         ]);
 
         DB::table('modulos')->insert([

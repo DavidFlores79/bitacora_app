@@ -40,18 +40,23 @@
                         @csrf
 
                         <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-4">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                            <label for="email" class="col-md-5 col-form-label text-md-end">{{ __('Nickname/Email') }}</label>
                             <div class="input-group input-group-alternative">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                    placeholder="{{ __('Email') }}" id="email" type="email" name="email"
-                                    value="{{ old('email') }}" value="admin@argon.com" required autofocus>
+                                <input id="login" 
+                                        type="text" 
+                                        class="form-control @if ($errors->has('nickname') || $errors->has('email')) is-invalid @endif" 
+                                        name="login" 
+                                        value="{{ old('nickname') ?: old('email') }}" 
+                                        required 
+                                        autocomplete="login" 
+                                autofocus>
                             </div>
-                            @if ($errors->has('email'))
-                                <span class="invalid-feedback" style="display: block;" role="alert">
-                                    <strong>{{ $errors->first('email') }}</strong>
+                            @if ($errors->has('nickname') || $errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('nickname') ?: $errors->first('email') }}</strong>
                                 </span>
                             @endif
                         </div>

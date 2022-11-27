@@ -27,10 +27,11 @@ Route::group(['middleware' => 'auth'], function () {
     //rutas get para modulos
     Route::get('puestos', [App\Http\Controllers\ProyectosController::class, 'index'])->name('puestos');
     Route::get('empleados', [App\Http\Controllers\ProyectosController::class, 'index'])->name('empleados');
-    Route::get('tipos-vehiculos', [App\Http\Controllers\ProyectosController::class, 'index'])->name('tipos-vehiculos');
+    Route::get('tipos-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'index'])->name('tipos-vehiculos');
     Route::get('administradores', [App\Http\Controllers\ProyectosController::class, 'index'])->name('administradores');
     Route::get('roles', [App\Http\Controllers\ProyectosController::class, 'index'])->name('roles');
-    Route::get('registro-visitantes', [App\Http\Controllers\ProyectosController::class, 'index'])->name('registro-visitantes');
+    Route::get('visitas', [App\Http\Controllers\VisitaController::class, 'index'])->name('visitas');
+    // Route::get('registro-visitantes', [App\Http\Controllers\ProyectosController::class, 'index'])->name('registro-visitantes');
 
     Route::get('proyectos', [App\Http\Controllers\ProyectosController::class, 'index'])->name('proyectos');
     Route::get('bitacora', [App\Http\Controllers\BitacoraController::class, 'index'])->name('bitacora');
@@ -42,18 +43,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 
-    Route::group(["middleware" => 'permiso'], function () {
-        Route::get('requerimientos/ver-ticket/', [App\Http\Controllers\RequerimientosController::class, 'displayTicket']);
-        Route::get('gestion-tickets', [App\Http\Controllers\GestionTicketsController::class, 'index'])->name('gestiontickets');
-        Route::get('requerimientos', [App\Http\Controllers\RequerimientosController::class, 'index'])->name('requerimientos');
-    });
+    // Route::group(["middleware" => 'permiso'], function () {
+    //     Route::get('requerimientos/ver-ticket/', [App\Http\Controllers\RequerimientosController::class, 'displayTicket']);
+    //     Route::get('gestion-tickets', [App\Http\Controllers\GestionTicketsController::class, 'index'])->name('gestiontickets');
+    //     Route::get('requerimientos', [App\Http\Controllers\RequerimientosController::class, 'index'])->name('requerimientos');
+    // });
 
-    //Gestion de Tickets
-    Route::get('gestion-tickets/getTickets', [App\Http\Controllers\GestionTicketsController::class, 'getTickets']);
-    Route::get('gestion-tickets/create', [App\Http\Controllers\GestionTicketsController::class, 'create']);
-    Route::post("gestion-tickets", [App\Http\Controllers\GestionTicketsController::class, "store"]);
-    Route::post("gestion-tickets/{id}/edit", [App\Http\Controllers\GestionTicketsController::class, "edit"]);
-    Route::delete("gestion-tickets/{id}", [App\Http\Controllers\GestionTicketsController::class, "destroy"]);
+    // //Gestion de Tickets
+    // Route::get('gestion-tickets/getTickets', [App\Http\Controllers\GestionTicketsController::class, 'getTickets']);
+    // Route::get('gestion-tickets/create', [App\Http\Controllers\GestionTicketsController::class, 'create']);
+    // Route::post("gestion-tickets", [App\Http\Controllers\GestionTicketsController::class, "store"]);
+    // Route::post("gestion-tickets/{id}/edit", [App\Http\Controllers\GestionTicketsController::class, "edit"]);
+    // Route::delete("gestion-tickets/{id}", [App\Http\Controllers\GestionTicketsController::class, "destroy"]);
 
     //Administracion de usuarios
     Route::get('admin-user/getUsers', [App\Http\Controllers\AdminUserController::class, 'getUsers']);
@@ -67,9 +68,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bitacora/consulta-bitacora', [App\Http\Controllers\BitacoraController::class, 'consultaBitacora']);
     Route::get("bitacora/actualizar", [App\Http\Controllers\BitacoraController::class, "actualizarBitacora"]);
 
-    //Requerimientos
-    Route::get('requerimientos/getRequerimientos', [App\Http\Controllers\RequerimientosController::class, 'getRequerimientos']);
-    Route::post('requerimientos/ver-ticket/{id}/getTicket', [App\Http\Controllers\RequerimientosController::class, 'getTicket']);
-    Route::put('requerimientos/ver-ticket', [App\Http\Controllers\RequerimientosController::class, 'update']);
+    //Visitas
+    Route::get('visitas/getVisitas', [App\Http\Controllers\VisitaController::class, 'getVisitas']);
+
+        //tipo campos
+        Route::get('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'index'])->name('tipo-vehiculos');
+        Route::get('tipo-vehiculos/getinfo', [App\Http\Controllers\TipoVehiculoController::class, 'getInfo']);
+        Route::get('tipo-vehiculos/create', [App\Http\Controllers\TipoVehiculoController::class, 'create']);
+        Route::get('tipo-vehiculos/edit', [App\Http\Controllers\TipoVehiculoController::class, 'edit']);
+        Route::post('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'store']);
+        Route::put('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'update']);
+        Route::delete("tipo-vehiculos/{id}", [App\Http\Controllers\TipoVehiculoController::class, "destroy"]);
 
 });
