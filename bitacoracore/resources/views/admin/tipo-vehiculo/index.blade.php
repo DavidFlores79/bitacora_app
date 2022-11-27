@@ -13,7 +13,7 @@
       <h6 class="mt-1">@yield('page-title')</h6>
       <button data-toggle="tooltip" data-placement="top" title=""
         class="btn btn-success d-flex justify-content-center align-items-center" ng-click="create()"><i
-          class="fas fa-plus mr-1"></i>Nuevo @yield('page-title')
+          class="fas fa-plus mr-1"></i>Nuevo
       </button>
     </div>
     <div class="card-body">
