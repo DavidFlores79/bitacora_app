@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Hash;
+use App\User;
 
 class UserController extends Controller
 {
@@ -19,4 +17,5 @@ class UserController extends Controller
 
         return view('users.index');
     }
+
 }

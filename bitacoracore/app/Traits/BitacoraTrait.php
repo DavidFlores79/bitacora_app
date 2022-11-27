@@ -22,6 +22,20 @@ trait BitacoraTrait
         return $bitacora;
     }
 
+    public function guardarEventoApi($user, $descripcion, $trace = "", $documento = "S/D", $exitoso = true)
+    {
+        $dt = new DateTime();
+        $bitacora = new Bitacora();
+        $bitacora->documento = $documento;
+        $bitacora->direccion_ip = $this->getIpAddress();
+        $bitacora->nickname_nombre = $user->nickname." - ".$user->name;
+        $bitacora->descripcion = $descripcion;
+        $bitacora->trace = "El usuario: ".$bitacora->nickname_nombre." ".$trace." Fecha: ".$dt->format('Y-m-d H:i:s');
+        $bitacora->exitoso = $exitoso;
+        $bitacora->save();
+        return $bitacora;
+    }
+
     public function getIpAddress()
     {
         $ipaddress = '';

@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call([CategoriasModuloTableSeeder::class]);
         $this->call([ModulosTableSeeder::class]);
         $this->call([ModuloPerfilPermisoTableSeeder::class]);
+        $this->call([TipoVehiculoSeeder::class]);
     }
 }

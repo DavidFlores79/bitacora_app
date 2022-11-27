@@ -22,7 +22,7 @@
         <table class="table table-striped table-hover text-center">
           <thead class="">
             <tr class="">
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.name'; sortReverse = !sortReverse"> Nombre </a>
+              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.nombre'; sortReverse = !sortReverse"> Nombre </a>
               </th>
               <th><a class="text-body" href="#" ng-click="sortType = 'usuario.mi_perfil.nombre'; sortReverse = !sortReverse"> Perfil </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'usuario.email'; sortReverse = !sortReverse"> Email </a>
@@ -37,7 +37,7 @@
             <tr
               dir-paginate="usuario in datosFiltrados = (usuarios|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
               current-page="currentPage" pagination-id="itemsPagination">
-              <td>@{{ usuario.name }} @{{ usuario.apellido }}</td>
+              <td>@{{ usuario.nombre }} @{{ usuario.apellido }}</td>
               <td>@{{ usuario.mi_perfil.nombre }}</td>
               <td>@{{ usuario.email }}</td>
               <td>@{{ usuario.telefono }}</td>

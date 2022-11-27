@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_tipos', function (Blueprint $table) {
+        Schema::create('tipo_vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->boolean('estatus')->default(true);
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_tipos');
+        Schema::dropIfExists('tipo_vehiculos');
     }
 };
