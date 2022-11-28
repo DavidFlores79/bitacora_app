@@ -1,8 +1,8 @@
 @extends('layouts.main', ['class' => 'bg-white'])
 
-@section('page-title', 'Tipo de Vehiculo')
-@section('ngApp', 'tipo_vehiculos')
-@section('ngController', 'tipo_vehiculos')
+@section('page-title', 'Usuarios')
+@section('ngApp', 'usuarios')
+@section('ngController', 'usuarios')
 
 @section('content')
 
@@ -23,6 +23,10 @@
           <thead class="">
             <tr class="">
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre'; sortReverse = !sortReverse"> Nombre </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.apellido'; sortReverse = !sortReverse"> Apellidos </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.perfil_id'; sortReverse = !sortReverse"> Perfil </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.nickname'; sortReverse = !sortReverse"> Nickname </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th>
               <th>Opc.</th>
             </tr>
           </thead>
@@ -30,7 +34,11 @@
             <tr
               dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
               current-page="currentPage" pagination-id="itemsPagination">
-              <td style="min-width: 150px;" class="pl-4 text-left">@{{ dato.nombre }}</td>
+              <td style="min-width: 150px;">@{{ dato.nombre }}</td>
+              <td style="min-width: 150px;">@{{ dato.apellido }}</td>
+              <td style="min-width: 150px;">@{{ dato.mi_perfil.nombre }}</td>
+              <td style="min-width: 150px;">@{{ dato.nickname }}</td>
+              <td style="min-width: 150px;">@{{ dato.email }}</td>
               <td class="d-flex justify-content-center">
                 <button class="btn btn-primary mr-2" ng-click="edit(dato)"><span data-toggle="tooltip" data-placement="top" title="Editar" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>
                 
@@ -130,6 +138,6 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('assets') }}/js/tipo_vehiculos.js"></script>
+<script src="{{ asset('assets') }}/js/usuarios.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.serializejson.js"></script>
 @endpush

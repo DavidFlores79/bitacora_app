@@ -35,7 +35,7 @@
             <div class="col-md-6 py-2">
               <label for="email" class="form-label">Correo</label>
               <input id="email" type="email" class="form-control" ng-model="user.email" required>
-            </div>
+            </div>zz
           </div>
           <div class="row">
             <div class="col-md-6 py-2">

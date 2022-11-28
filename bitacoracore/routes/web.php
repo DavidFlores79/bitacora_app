@@ -25,21 +25,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     //rutas get para modulos
-    Route::get('puestos', [App\Http\Controllers\ProyectosController::class, 'index'])->name('puestos');
-    Route::get('empleados', [App\Http\Controllers\ProyectosController::class, 'index'])->name('empleados');
-    Route::get('tipos-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'index'])->name('tipos-vehiculos');
-    Route::get('administradores', [App\Http\Controllers\ProyectosController::class, 'index'])->name('administradores');
-    Route::get('roles', [App\Http\Controllers\ProyectosController::class, 'index'])->name('roles');
     Route::get('visitas', [App\Http\Controllers\VisitaController::class, 'index'])->name('visitas');
-    // Route::get('registro-visitantes', [App\Http\Controllers\ProyectosController::class, 'index'])->name('registro-visitantes');
-
-    Route::get('proyectos', [App\Http\Controllers\ProyectosController::class, 'index'])->name('proyectos');
+    Route::get('registro-visitantes', [App\Http\Controllers\VisitaController::class, 'registroVisitantes'])->name('registro-visitantes');
     Route::get('bitacora', [App\Http\Controllers\BitacoraController::class, 'index'])->name('bitacora');
     Route::get('admin-user', [App\Http\Controllers\AdminUserController::class, 'index'])->name('adminusers');
 
     Route::get('profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('profile/password', [App\Http\Controllers\ProfileController::class, 'password'])->name('profile.password');
+    Route::get('roles', [App\Http\Controllers\ProyectosController::class, 'index'])->name('roles');
 
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 
@@ -48,13 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
     //     Route::get('gestion-tickets', [App\Http\Controllers\GestionTicketsController::class, 'index'])->name('gestiontickets');
     //     Route::get('requerimientos', [App\Http\Controllers\RequerimientosController::class, 'index'])->name('requerimientos');
     // });
-
-    // //Gestion de Tickets
-    // Route::get('gestion-tickets/getTickets', [App\Http\Controllers\GestionTicketsController::class, 'getTickets']);
-    // Route::get('gestion-tickets/create', [App\Http\Controllers\GestionTicketsController::class, 'create']);
-    // Route::post("gestion-tickets", [App\Http\Controllers\GestionTicketsController::class, "store"]);
-    // Route::post("gestion-tickets/{id}/edit", [App\Http\Controllers\GestionTicketsController::class, "edit"]);
-    // Route::delete("gestion-tickets/{id}", [App\Http\Controllers\GestionTicketsController::class, "destroy"]);
 
     //Administracion de usuarios
     Route::get('admin-user/getUsers', [App\Http\Controllers\AdminUserController::class, 'getUsers']);
@@ -79,5 +66,42 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'store']);
         Route::put('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'update']);
         Route::delete("tipo-vehiculos/{id}", [App\Http\Controllers\TipoVehiculoController::class, "destroy"]);
+
+        //tipo campos
+        Route::get('perfiles', [App\Http\Controllers\PerfilController::class, 'index'])->name('perfiles');
+        Route::get('perfiles/getinfo', [App\Http\Controllers\PerfilController::class, 'getInfo']);
+        Route::get('perfiles/create', [App\Http\Controllers\PerfilController::class, 'create']);
+        Route::get('perfiles/edit', [App\Http\Controllers\PerfilController::class, 'edit']);
+        Route::post('perfiles', [App\Http\Controllers\PerfilController::class, 'store']);
+        Route::put('perfiles', [App\Http\Controllers\PerfilController::class, 'update']);
+        Route::delete("perfiles/{id}", [App\Http\Controllers\PerfilController::class, "destroy"]);
+        //tipo campos
+
+        //Empleados
+        Route::get('empleados', [App\Http\Controllers\UserController::class, 'indexEmpleado'])->name('empleados');
+        Route::get('empleados/getempleados', [App\Http\Controllers\UserController::class, 'getEmpleados']);
+        Route::get('empleados/create', [App\Http\Controllers\UserController::class, 'create']);
+        Route::get('empleados/edit', [App\Http\Controllers\UserController::class, 'edit']);
+        Route::post('empleados', [App\Http\Controllers\UserController::class, 'store']);
+        Route::put('empleados', [App\Http\Controllers\UserController::class, 'update']);
+        Route::delete("empleados/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
+
+        //Administradores
+        Route::get('administradores', [App\Http\Controllers\UserController::class, 'indexAdmin'])->name('administradores');
+        Route::get('administradores/getadmin', [App\Http\Controllers\UserController::class, 'getAdmin']);
+        Route::get('administradores/create', [App\Http\Controllers\UserController::class, 'create']);
+        Route::get('administradores/edit', [App\Http\Controllers\UserController::class, 'edit']);
+        Route::post('administradores', [App\Http\Controllers\UserController::class, 'store']);
+        Route::put('administradores', [App\Http\Controllers\UserController::class, 'update']);
+        Route::delete("administradores/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
+        
+        
+        
+        //visitas
+        Route::get('visitas/create', [App\Http\Controllers\VisitaController::class, 'create']);
+        Route::get('visitas/edit', [App\Http\Controllers\VisitaController::class, 'edit']);
+        Route::post('visitas', [App\Http\Controllers\VisitaController::class, 'store']);
+        Route::put('visitas', [App\Http\Controllers\VisitaController::class, 'update']);
+        Route::delete("visitas/{id}", [App\Http\Controllers\VisitaController::class, "destroy"]);
 
 });

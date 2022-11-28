@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Sync;
 use App\Models\Visita;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class SyncController extends Controller
@@ -29,7 +31,7 @@ class SyncController extends Controller
                 $registro->placas = $visita['placas'];
                 $registro->user_id = $visita['userId'];
                 $registro->fecha_entrada = $visita['fechaEntrada'];
-                $registro->fecha_salida = $visita['fechaSalida'];
+                $registro->fecha_salida = new Carbon($visita['fechaSalida']);
                 $registro->actualizado = $visita['actualizado'];
                 $registro->save();
                 $visitasActualizadas++;

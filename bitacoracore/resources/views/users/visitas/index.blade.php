@@ -1,6 +1,6 @@
 @extends('layouts.main', ['class' => 'bg-white'])
 
-@section('page-title', 'Reporte de Visitas')
+@section('page-title', 'Visitantes')
 @section('ngApp', 'visitas')
 @section('ngController', 'visitas')
 
@@ -10,10 +10,10 @@
 
   <div class="card shadow">
     <div class="card-header bg-white d-flex justify-content-between">
-      <h6 class="mt-1">Usuarios</h6>
+      <h6 class="mt-1">@yield('page-title')</h6>
       <button data-toggle="tooltip" data-placement="top" title="Agregar ticket"
-        class="btn btn-success d-flex justify-content-center align-items-center" ng-click="modalNuevo()"><i
-          class="fas fa-user mr-1"></i>Nuevo Usuario
+        class="btn btn-success d-flex justify-content-center align-items-center" ng-click="create()"><i
+          class="fas fa-plus mr-1"></i>Agregar Visitante
       </button>
     </div>
     <div class="card-body">
@@ -22,40 +22,48 @@
         <table class="table table-striped table-hover text-center">
           <thead class="">
             <tr class="">
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.nombre'; sortReverse = !sortReverse"> Nombre </a>
               </th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.mi_perfil.nombre'; sortReverse = !sortReverse"> Perfil </a></th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.email'; sortReverse = !sortReverse"> Email </a>
-              </th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.telefono'; sortReverse = !sortReverse"> Telefono </a></th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.estatus'; sortReverse = !sortReverse"> Estado </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.imagen_identificacion'; sortReverse = !sortReverse"> Imagen </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_datonte'; sortReverse = !sortReverse"> Visitante </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_quien_dato'; sortReverse = !sortReverse"> A Quien Visita </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.motivo_dato'; sortReverse = !sortReverse"> Motivo </a>
+            </th>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.tipo_vehiculo_id'; sortReverse = !sortReverse"> Tipo </a></th>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.placas'; sortReverse = !sortReverse"> Placas </a></th>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.user_id'; sortReverse = !sortReverse"> Recibió </a>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.fecha_entrada'; sortReverse = !sortReverse"> Entrada </a>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.fecha_salida'; sortReverse = !sortReverse"> Salida </a>
+            <!-- <th><a class="text-body" href="#" ng-click="sortType = 'dato.app_id'; sortReverse = !sortReverse"> AppId </a> -->
               <th>Opc.</th>
 
             </tr>
           </thead>
           <tbody>
             <tr
-              dir-paginate="usuario in datosFiltrados = (usuarios|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
+              dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
               current-page="currentPage" pagination-id="itemsPagination">
-              <td>@{{ usuario.nombre }} @{{ usuario.apellido }}</td>
-              <td>@{{ usuario.mi_perfil.nombre }}</td>
-              <td>@{{ usuario.email }}</td>
-              <td>@{{ usuario.telefono }}</td>
-              <td ng-if="usuario.bloqueado == 0"><span class="badge badge-pill badge-success">Activo</span></td>
-              <td ng-if="usuario.bloqueado == 1"><span class="badge badge-pill badge-danger">Inactivo</span></td>
-              <td>
-                <button class="btn btn-primary" ng-click="modalEditar(usuario.id)"><span data-toggle="tooltip" data-placement="top" title="Editar usuario" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>
+              <td><img class="imagen_id" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}"/></td>
+              <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
+              <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
+              <td>@{{ dato.motivo_visita }}</td>
+              <td>@{{ dato.tipo_vehiculo.nombre }}</td>
+              <td>@{{ dato.placas }}</td>
+              <td>@{{ dato.user.nombre }} @{{ dato.user.apellido }}</td>
+              <td>@{{ fixDate(dato.fecha_entrada) | date:"yyyy-MM-dd '-' h:mma" }}</td>
+              <td>@{{ fixDate(dato.fecha_salida) | date:"yyyy-MM-dd '-' h:mma" }}</td>
+              <!-- <td>@{{ dato.app_id }}</td> -->
+              <td class="d-flex justify-content-between">
+                <button class="btn btn-primary mr-2" ng-click="edit(dato)"><span data-toggle="tooltip" data-placement="top" title="Editar visita" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>
                 
-                <button class="btn btn-danger" ng-click="eliminar(usuario.id)"><span data-toggle="tooltip"
-                data-placement="top" title="Eliminar usuario" onmouseenter="$(this).tooltip('show')"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-danger" ng-click="confirmarEliminar(dato)"><span data-toggle="tooltip"
+                data-placement="top" title="Eliminar dato" onmouseenter="$(this).tooltip('show')"><i class="fas fa-trash-alt"></i></button>
                 
-                <button class="btn btn-info" ng-click="modalRestPssword(usuario)"><span data-toggle="tooltip" data-placement="top" title="Rest. Contraseña" onmouseenter="$(this).tooltip('show')"><i class="fas fa-key"></i></button>
               </td>
             </tr>
           </tbody>
         </table>
         <div class="text-right">
-          @{{ usuarios.length }} Registros
+          @{{ datos.length }} Registros
         </div>
         <div class="btn-toolbar" role="toolbar" aria-label="Calimax">
           <dir-pagination-controls boundary-links="true" pagination-id="itemsPagination"
@@ -69,7 +77,7 @@
 
 </div>
 
-@include('includes.modals.adminuser_modals')
+@include('includes.modals.visit_modals')
 
 @endsection
 

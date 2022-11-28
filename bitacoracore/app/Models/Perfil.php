@@ -18,4 +18,14 @@ class Perfil extends Model
         return $this->belongsToMany(Permiso::class, 'modulo_perfil_permiso')->withTimestamps()
             ->withPivot('modulo_id');
     }
+
+    public function scopeEmpleados($query)
+    {
+        return $query->where('id', '<>', 1)->where('id', '<>', 2);
+    }
+
+    public function scopeAdministradores($query)
+    {
+        return $query->where('id', '=', 2);
+    }
 }

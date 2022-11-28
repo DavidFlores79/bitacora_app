@@ -19,4 +19,9 @@ class Visita extends Model
     {
         return $this->belongsTo(Servicio::class, "servicio_id");
     }
+
+    public function tipo_vehiculo()
+    {
+        return $this->belongsTo(TipoVehiculo::class, "tipo_vehiculo_id");
+    }
 }

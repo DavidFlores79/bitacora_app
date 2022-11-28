@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\BitacoraTrait;
+use App\Traits\MenuTrait;
 use Illuminate\Http\Request;
 
 class ProyectosController extends Controller
 {
+    use BitacoraTrait, MenuTrait;
      /**
      * Create a new controller instance.
      *
@@ -23,6 +26,8 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $modulos = $this->getModulosPerfil();
+        return view('users.visitas.index', ['modulosConCategorias' => $modulos]);
+        // return view('users.visitas.index');
     }
 }

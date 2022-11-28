@@ -1,6 +1,6 @@
 @extends('layouts.main', ['class' => 'bg-white'])
 
-@section('page-title', 'Perfil')
+@section('page-title', 'Mi Perfil')
 @section('ngApp', 'perfil')
 @section('ngController', 'perfil')
 
@@ -13,20 +13,20 @@
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="col">
-                                <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                                <div class="card-profile-stats d-flex justify-content-center mt-md-5 my-2">
                                     <div>
                                         <span class="description"> {{ auth()->user()->miPerfil->nombre }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="text-left">
                             <h3>
                                 {{ auth()->user()->name }}
                             </h3>
 
                             <hr class="my-4" />
-                                <span>Nombre: {{ auth()->user()->name }}</span><br>
+                                <span>Nombre: {{ auth()->user()->nombre }}</span><br>
                                 <span>Correo: {{ auth()->user()->email }}</span><br>
                                 <span>Apellidos: {{ auth()->user()->apellido }}</span><br>
                                 <span>Telefono: {{ auth()->user()->telefono }}</span><br>
@@ -38,7 +38,7 @@
                 <div class="card  shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0 ml-3">{{ __('Edit Profile') }}</h3>
+                            <h3 class="mb-0 ml-3">@yield('page-title')</h3>
                         </div>
                     </div>
                     <div class="card-body">
@@ -46,7 +46,7 @@
                             @csrf
                             @method('put')
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">Información de Usuario</h6>
 
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -58,14 +58,14 @@
                             @endif
 
 
-                            <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                            <div class="pl-lg-4 ">
+                                <div class="form-group{{ $errors->has('nombre') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Nombre') }}</label>
+                                    <input type="text" name="nombre" id="input-nombre" class="form-control form-control-alternative{{ $errors->has('nombre') ? ' is-invalid' : '' }}" placeholder="{{ __('Nombre') }}" value="{{ old('nombre', auth()->user()->nombre) }}" required autofocus>
 
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('nombre'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('nombre') }}</strong>
                                         </span>
                                     @endif
                                 </div>

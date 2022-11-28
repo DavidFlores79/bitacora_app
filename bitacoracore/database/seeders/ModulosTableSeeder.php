@@ -19,10 +19,10 @@ class ModulosTableSeeder extends Seeder
     {
         DB::table('modulos')->insert([
             "categoria_modulo_id" => 1,
-            "nombre" => "Puestos",
-            "funcionalidad" => "Modulo para CRUD de Puestos",
+            "nombre" => "Perfiles",
+            "funcionalidad" => "Modulo para CRUD de Perfiles",
             "icono" => "ni-bullet-list-67 text-danger",
-            "ruta" => "puestos",
+            "ruta" => "perfiles",
         ]);
 
         DB::table('modulos')->insert([
@@ -79,6 +79,14 @@ class ModulosTableSeeder extends Seeder
             "funcionalidad" => "Modulo para control de visitas a Residentes",
             "icono" => "ni-chart-bar-32 text-secondary",
             "ruta" => "registro-visitantes",
+        ]);
+
+        DB::table('modulos')->insert([
+            "categoria_modulo_id" => 2,
+            "nombre" => "Reporte de Visitas",
+            "funcionalidad" => "Modulo que muestra el record de visitas a Residentes",
+            "icono" => "ni-chart-bar-32 text-primary",
+            "ruta" => "visitas",
         ]);
 
     }

@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'perfil_id',
-        'name',
+        'nombre',
         'email',
         'password',
     ];
@@ -68,5 +68,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function scopeEmpleados($query)
+    {
+        return $query->where('perfil_id', '<>', 1)->where('perfil_id', '<>', 2);
+    }
+
+    public function scopeAdministradores($query)
+    {
+        return $query->where('perfil_id', '=', 2);
     }
 }

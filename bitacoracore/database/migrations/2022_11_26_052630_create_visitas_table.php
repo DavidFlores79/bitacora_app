@@ -24,8 +24,10 @@ return new class extends Migration
             $table->bigInteger('tipo_vehiculo_id')->unsigned();
             $table->string('placas');
             $table->bigInteger('user_id')->unsigned();
-            $table->string('fecha_entrada');
-            $table->string('fecha_salida');
+            $table->dateTime('fecha_entrada')->nullable();
+            $table->dateTime('fecha_salida')->nullable();
+            // $table->string('fecha_entrada');
+            // $table->string('fecha_salida');
             $table->boolean('actualizado');
             $table->timestamps();
         });

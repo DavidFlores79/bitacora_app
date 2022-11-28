@@ -1,8 +1,8 @@
 @extends('layouts.main', ['class' => 'bg-white'])
 
-@section('page-title', 'Tipo de Vehiculo')
-@section('ngApp', 'tipo_vehiculos')
-@section('ngController', 'tipo_vehiculos')
+@section('page-title', 'Perfiles')
+@section('ngApp', 'perfiles')
+@section('ngController', 'perfiles')
 
 @section('content')
 
@@ -130,6 +130,6 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('assets') }}/js/tipo_vehiculos.js"></script>
+<script src="{{ asset('assets') }}/js/perfiles.js"></script>
 <script type="text/javascript" src="{{ asset('assets') }}/js/jquery.serializejson.js"></script>
 @endpush

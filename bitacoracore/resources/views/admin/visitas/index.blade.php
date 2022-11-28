@@ -1,6 +1,6 @@
 @extends('layouts.main', ['class' => 'bg-white'])
 
-@section('page-title', 'Reporte de Visitas')
+@section('page-title', 'Reporte de Visitantes')
 @section('ngApp', 'visitas')
 @section('ngController', 'visitas')
 
@@ -13,7 +13,7 @@
       <h6 class="mt-1">@yield('page-title')</h6>
       <button data-toggle="tooltip" data-placement="top" title="Agregar ticket"
         class="btn btn-success d-flex justify-content-center align-items-center" ng-click="create()"><i
-          class="fas fa-user mr-1"></i>Nueva visita
+          class="fas fa-plus mr-1"></i>Agregar Visitante
       </button>
     </div>
     <div class="card-body">
@@ -29,6 +29,8 @@
             </th>
             <th><a class="text-body" href="#" ng-click="sortType = 'dato.placas'; sortReverse = !sortReverse"> Placas </a></th>
             <th><a class="text-body" href="#" ng-click="sortType = 'dato.user_id'; sortReverse = !sortReverse"> Recibió </a>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.fecha_entrada'; sortReverse = !sortReverse"> Entrada </a>
+            <th><a class="text-body" href="#" ng-click="sortType = 'dato.fecha_salida'; sortReverse = !sortReverse"> Salida </a>
             <th><a class="text-body" href="#" ng-click="sortType = 'dato.app_id'; sortReverse = !sortReverse"> AppId </a>
               <th>Opc.</th>
 
@@ -42,7 +44,9 @@
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
               <td>@{{ dato.motivo_visita }}</td>
               <td>@{{ dato.placas }}</td>
-              <td>@{{ dato.user.nombre }}</td>
+              <td>@{{ dato.user.nombre }} @{{ dato.user.apellido }}</td>
+              <td>@{{ dato.fecha_entrada | date:"yyyy-MM-dd '-' h:mma" }}</td>
+              <td>@{{ dato.fecha_salida | date:"yyyy-MM-dd '-' h:mma" }}</td>
               <td>@{{ dato.app_id }}</td>
               <td class="d-flex justify-content-between">
                 <button class="btn btn-primary mr-2" ng-click="modalEditar(dato.id)"><span data-toggle="tooltip" data-placement="top" title="Editar visita" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>

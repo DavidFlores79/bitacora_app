@@ -1,16 +1,15 @@
-var app = angular.module('empleados', [ 'angularUtils.directives.dirPagination' ]);
+var app = angular.module('perfiles', [ 'angularUtils.directives.dirPagination' ]);
 
-app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike) {
+app.controller( 'perfiles', function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.currentPage = 1;
   $scope.pageSize = 11;
 
   $scope.dato = {};
   $scope.datos = [];
-  $scope.perfiles = [];
   $scope.createForm = {};
   
   $http({
-      url: 'empleados/getempleados',
+      url: 'perfiles/getinfo',
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -20,13 +19,12 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
       function successCallback(response) {
           console.log(response);
           $scope.datos = response.data.datos;
-          $scope.perfiles = response.data.perfiles;
           console.log($scope.datos);
       },
       function errorCallback(response) {
           console.log(response);
           swal(
-              'Mensaje del Sistema',
+              configuraciones.titulo,
               response.data.message,
               tiposDeMensaje.error
           );
@@ -36,7 +34,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   $scope.create = function () {
 
       $http({
-          url: 'empleados/create',
+          url: 'perfiles/create',
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -62,7 +60,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   $scope.store = function () {
 
       $http({
-          url: 'empleados',
+          url: 'perfiles',
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -105,12 +103,11 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
 
   $scope.edit = function (dato) {
       console.log('cat: ', dato);
-      $scope.dato = dato;
-    //   $('#edit-nombre').val(dato.nombre);
+      $('#edit-nombre').val(dato.nombre);
       $('#edit-id').val(dato.id);
       
       $http({
-          url: 'empleados/edit',
+          url: 'perfiles/edit',
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -133,10 +130,13 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   }
 
   $scope.update = function () {
-      let dato_editado = $scope.dato;
+      let dato_editado = {
+          id: $('#edit-id').val(),
+          nombre: $('#edit-nombre').val(),
+      };
 
       $http({
-          url: `empleados`,
+          url: `perfiles`,
           method: 'PUT',
           data: dato_editado,
           headers: {
@@ -185,7 +185,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
       console.log('dato: ', $scope.dato);
 
       $http({
-          url: `empleados/${$scope.dato.id}`,
+          url: `perfiles/${$scope.dato.id}`,
           method: 'DELETE',
           headers: {
               'Content-Type': 'application/json',
