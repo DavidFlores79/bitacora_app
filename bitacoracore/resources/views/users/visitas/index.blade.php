@@ -23,7 +23,7 @@
           <thead class="">
             <tr class="">
               </th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'dato.imagen_identificacion'; sortReverse = !sortReverse"> Imagen </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.imagen_identificacion'; sortReverse = !sortReverse"> INE </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_datonte'; sortReverse = !sortReverse"> Visitante </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_quien_dato'; sortReverse = !sortReverse"> A Quien Visita </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.motivo_dato'; sortReverse = !sortReverse"> Motivo </a>
@@ -39,21 +39,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr
+            <!-- <tr class="fila-visita" ng-click="show(dato)" -->
+              <tr
               dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
               current-page="currentPage" pagination-id="itemsPagination">
               <td><img class="imagen_id" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}"/></td>
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
               <td>@{{ dato.motivo_visita }}</td>
-              <td>@{{ dato.tipo_vehiculo.nombre }}</td>
-              <td>@{{ dato.placas }}</td>
+              <td><i ng-class="{2:'fas fa-motorcycle fa-2x moto', 1:'fas fa-car-side fa-2x carro', 3:'fas fa-truck-moving fa-2x camion'}[dato.tipo_vehiculo_id]"></i></td>
+              <td>@{{ dato.placas | uppercase }}</td>
               <td>@{{ dato.user.nombre }} @{{ dato.user.apellido }}</td>
               <td>@{{ fixDate(dato.fecha_entrada) | date:"yyyy-MM-dd '-' h:mma" }}</td>
               <td>@{{ fixDate(dato.fecha_salida) | date:"yyyy-MM-dd '-' h:mma" }}</td>
               <!-- <td>@{{ dato.app_id }}</td> -->
               <td class="d-flex justify-content-between">
+                <button class="btn btn-info mr-2" ng-click="show(dato)"><span data-toggle="tooltip" data-placement="top" title="Detalles de la visita" onmouseenter="$(this).tooltip('show')"><i class="far fa-eye"></i></button>
+                
                 <button class="btn btn-primary mr-2" ng-click="edit(dato)"><span data-toggle="tooltip" data-placement="top" title="Editar visita" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>
+                
                 
                 <button class="btn btn-danger" ng-click="confirmarEliminar(dato)"><span data-toggle="tooltip"
                 data-placement="top" title="Eliminar dato" onmouseenter="$(this).tooltip('show')"><i class="fas fa-trash-alt"></i></button>

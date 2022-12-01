@@ -18,6 +18,10 @@ class VisitaController extends Controller
         return view('admin.visitas.index', ['modulosConCategorias' => $modulos]);
     }
 
+    public function show() {
+        return "Hola Mundo!";
+    }
+
     public function registroVisitantes()
     {
         $modulos = $this->getModulosPerfil();
@@ -30,7 +34,7 @@ class VisitaController extends Controller
         $data = [
             'code' => 200,
             'status' => 'success',
-            'datos' => $visitas->load('user', 'tipo_vehiculo'),
+            'datos' => $visitas->load('user', 'tipo_vehiculo', 'servicio'),
         ];
         return response()->json($data, $data['code']);
 

@@ -342,6 +342,30 @@ footer {
 .imagen_id {
     max-height: 50px;
 }
+
+.detalle-imagen {
+    width: 100%;
+    background-size: cover;
+    max-height: 400px;
+}
 /* Imagen Idenficacion */
 
+/* iconos tipos vehiculo */
 
+.carro{
+    color:#3391dd;
+}
+
+.moto{
+    color:#f0ab00;
+}
+
+.camion{
+    color:crimson;
+}
+
+/* .fila-visita {
+    cursor: pointer;
+} */
+
+/* iconos tipos vehiculo */

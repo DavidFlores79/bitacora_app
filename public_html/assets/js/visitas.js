@@ -2,7 +2,7 @@ var app = angular.module("visitas", ["angularUtils.directives.dirPagination"]);
 
 app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.currentPage = 1;
-  $scope.pageSize = 11;
+  $scope.pageSize = 5;
   $scope.user = {
     name: "",
     apellido: "",
@@ -33,6 +33,12 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.create = () => {
     $("#mdl_add_users").modal("show");
   };
+
+  $scope.show = (dato) => {
+    console.log(dato);
+    $scope.dato = dato;
+    $("#detallesModal").modal("show");
+  }
 
   $scope.create = function () {
     $http({
@@ -219,3 +225,9 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     return new Date(date);
   };
 });
+
+// app.filter('tipoVehiculo', function($sce) {
+//   return function(input) {
+//       return (input.includes('Mot')) ? "<i class='fas fa-motorcycle'></i>" : 'Otro';
+//   }
+// });

@@ -174,7 +174,7 @@ class UserController extends Controller
                 $dato->email = $request->input('email');
                 $dato->nickname = $request->input('nickname');
                 $dato->telefono = $request->input('telefono');
-                $dato->password = Hash::make($request->input('password'));
+                if($request->input('password')) $dato->password = Hash::make($request->input('password'));
                 $dato->save();
 
                 $data = [

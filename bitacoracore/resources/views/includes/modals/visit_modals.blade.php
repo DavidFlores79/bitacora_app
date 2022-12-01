@@ -135,3 +135,57 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Detalles -->
+<div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detallesModalLabel">Detalles del Registro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="detalle-imagen" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
+        <div class="table-responsive mt-4">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th colspan="2">Visitante</th>
+                <td colspan="2">@{{ dato.nombre_visitante }}</td>
+              </tr>
+              <tr>
+                <th colspan="2">Quien Visita</th>
+                <td colspan="2">@{{ dato.nombre_quien_visita }}</td>
+              </tr>
+              <tr>
+                <th colspan="2">Motivo</th>
+                <td colspan="2">@{{dato.motivo_visita}}</td>
+              </tr>
+              <tr>
+                <th>Tipo de Vehículo</th>
+                <td><i ng-class="{2:'fas fa-motorcycle fa-2x moto', 1:'fas fa-car-side fa-2x carro', 3:'fas fa-truck-moving fa-2x camion'}[dato.tipo_vehiculo_id]"></i></td>
+                <th>Placas</th>
+                <td>@{{dato.placas | uppercase}}</td>
+              </tr>
+              <tr>
+                <th colspan="2">Recibió</th>
+                <td colspan="2">@{{dato.user.nombre}} @{{dato.user.apellido}} | @{{ dato.servicio.nombre }}</td>
+              </tr>
+              <tr>
+                <th>Fecha Entrada</th>
+                <td>@{{fixDate(dato.fecha_entrada) | date:'MMM d, y h:mm:ss a' }}</td>
+                <th>Fecha Salida</th>
+                <td>@{{fixDate(dato.fecha_salida) | date:'MMM d, y h:mm:ss a' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
