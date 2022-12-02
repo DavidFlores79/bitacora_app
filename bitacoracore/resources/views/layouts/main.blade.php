@@ -41,16 +41,6 @@
     <!-- Constants JS -->
     <script src="{{ asset('assets') }}/js/constantes.js"></script>
 
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
-            });
-        });
-    </script>
-
     <!-- Loading  -->
     <link href="{{ asset('assets') }}/css/loading.css" rel="stylesheet">
 
@@ -66,6 +56,16 @@
 
     <!-- main CSS -->
     <link type="text/css" href="{{ asset('assets') }}/css/main.css" rel="stylesheet">
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
+            });
+        });
+    </script>
 
 
 </head>
