@@ -43,7 +43,7 @@
               <tr
               dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize"
               current-page="currentPage" pagination-id="itemsPagination">
-              <td><img class="imagen_id" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}"/></td>
+              <td><img class="imagen_id"  ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}"/></td>
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
               <td>@{{ dato.motivo_visita }}</td>

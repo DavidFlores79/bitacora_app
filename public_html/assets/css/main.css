@@ -341,6 +341,7 @@ footer {
 /* Imagen Idenficacion */
 .imagen_id {
     max-height: 50px;
+    cursor: pointer;
 }
 
 .detalle-imagen {
@@ -361,7 +362,7 @@ footer {
 }
 
 .camion{
-    color:crimson;
+    color:rgb(53, 220, 20);
 }
 
 /* .fila-visita {

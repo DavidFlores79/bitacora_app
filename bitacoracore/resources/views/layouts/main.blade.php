@@ -41,6 +41,16 @@
     <!-- Constants JS -->
     <script src="{{ asset('assets') }}/js/constantes.js"></script>
 
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
+            });
+        });
+    </script>
+
     <!-- Loading  -->
     <link href="{{ asset('assets') }}/css/loading.css" rel="stylesheet">
 
@@ -71,23 +81,23 @@
 
 
     @auth()
-        <!-- Cerrar Sesión de usuario -->
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
-        <!-- Barra Lateral -->
-        @include('layouts.navbars.sidebar')
+    <!-- Cerrar Sesión de usuario -->
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <!-- Barra Lateral -->
+    @include('layouts.navbars.sidebar')
     @endauth
 
     <div class="main-content">
 
         <!-- Navbar -->
         @auth()
-            @include('layouts.navbars.navs.auth')
+        @include('layouts.navbars.navs.auth')
         @endauth
 
         @guest()
-            @include('layouts.navbars.navs.guest')
+        @include('layouts.navbars.navs.guest')
         @endguest
 
         <!-- Contenido -->
@@ -98,11 +108,11 @@
 
     <!-- Footer -->
     @auth()
-        @include('layouts.footers.auth')
+    @include('layouts.footers.auth')
     @endauth
 
     @guest()
-        @include('layouts.footers.guest')
+    @include('layouts.footers.guest')
     @endguest
 
     <!-- scripts -->
