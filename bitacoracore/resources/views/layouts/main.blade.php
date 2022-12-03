@@ -64,9 +64,12 @@
             OneSignal.init({
                 appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
             });
-        });
 
-        OneSignal.push(function() {
+            OneSignal.sendTag("perfil", "admin", function(tagsSent) {
+                console.log('Perfil admin');
+            });
+
+
             OneSignal.getUserId(function(userId) {
                 console.log(userId);
             });
