@@ -63,12 +63,7 @@
         OneSignal.push(function() {
             OneSignal.init({
                 appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
-                autoRegister: true,
-                notifyButton: {
-                    enable: true,
-                },
             });
-            OneSignal.registerForPushNotifications();
         });
 
         OneSignal.push(function() {
