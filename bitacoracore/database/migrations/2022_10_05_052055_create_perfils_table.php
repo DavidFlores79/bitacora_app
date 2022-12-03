@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('nombre',100);
+            $table->string('codigo',20)->nullable();
             $table->string('descripcion',100)->nullable();
             $table->string('icono',100)->nullable();
             $table->boolean('visible')->default(1);
