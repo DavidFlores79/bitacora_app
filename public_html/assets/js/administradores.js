@@ -4,7 +4,7 @@ var app = angular.module("administradores", [
 
 app.controller(
   "administradores",
-  function ($scope, $http, $httpParamSerializerJQLike) {
+  function ($scope, $http, $httpParamSerializerJQLike, $window) {
     $scope.currentPage = 1;
     $scope.pageSize = 11;
 
@@ -12,6 +12,24 @@ app.controller(
     $scope.datos = [];
     $scope.perfiles = [];
     $scope.createForm = {};
+
+
+    $window.OneSignal = $window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+            appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
+        });
+
+        OneSignal.sendTag("perfil", "admin", function(tagsSent) {
+            console.log('Perfil admin');
+        });
+
+
+        OneSignal.getUserId(function(userId) {
+            console.log(userId);
+        });
+    });
+
 
     $http({
       url: "administradores/getadmin",

@@ -58,26 +58,8 @@
     <link type="text/css" href="{{ asset('assets') }}/css/main.css" rel="stylesheet">
 
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function() {
-            OneSignal.init({
-                appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
-            });
-
-            OneSignal.sendTag("perfil", "admin", function(tagsSent) {
-                console.log('Perfil admin');
-            });
-
-
-            OneSignal.getUserId(function(userId) {
-                console.log(userId);
-            });
-        });
-    </script>
-
-
-
+    <!-- Scripts Personalizados -->
+    @stack('os')
 
 </head>
 
