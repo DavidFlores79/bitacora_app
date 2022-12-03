@@ -63,17 +63,18 @@
         OneSignal.push(function() {
             OneSignal.init({
                 appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
+                autoRegister: true,
+                notifyButton: {
+                    enable: true,
+                },
             });
+            OneSignal.registerForPushNotifications();
         });
 
-        OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-            if (isEnabled) {
-                // user has subscribed
-                OneSignal.getUserId(function(userId) {
-                    console.log('player_id of the subscribed user is : ' + userId);
-                    // Make a POST call to your server with the user ID        
-                });
-            }
+        OneSignal.push(function() {
+            OneSignal.getUserId(function(userId) {
+                console.log(userId);
+            });
         });
     </script>
 
