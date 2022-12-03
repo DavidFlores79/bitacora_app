@@ -35,5 +35,9 @@ class HomeController extends Controller
         return view('home', ['modulosConCategorias' => $modulos]);
     }
 
+    public function getProfileCode() {
+        return auth()->user()->miPerfil->codigo;
+    }
+
 
 }

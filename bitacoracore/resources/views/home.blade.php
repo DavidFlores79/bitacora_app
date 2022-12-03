@@ -14,7 +14,7 @@
     @endif
 
 
-    {{ auth()->user()->perfil->nombre }}
+
 </div>
 
 
@@ -29,7 +29,6 @@
 @push('os')
 
 <script>
-    console.log("{{ Auth::user()->perfil->nombre }}");
     // window.OneSignal = window.OneSignal || [];
     // OneSignal.push(function() {
     //     OneSignal.init({

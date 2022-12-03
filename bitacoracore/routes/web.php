@@ -23,6 +23,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('get-profile-code', [App\Http\Controllers\HomeController::class, 'getProfileCode']);
 
     //rutas get para modulos
     Route::get('visitas', [App\Http\Controllers\VisitaController::class, 'index'])->name('visitas');
