@@ -127,6 +127,7 @@ class UserController extends Controller
             $dato->nickname = $request->input('nickname');
             $dato->telefono = $request->input('telefono');
             $dato->password = Hash::make($request->input('password'));
+            $dato->estatus = 1;
             $dato->servicio_id = ($request->input('servicio')) ? $request->servicio : auth()->user()->servicio_id;
 
             $dato->save();
