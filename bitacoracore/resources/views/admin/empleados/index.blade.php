@@ -28,7 +28,7 @@
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.servicio.nombre'; sortReverse = !sortReverse"> Servicio </a></th>
               @endif
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'usuario.estatus'; sortReverse = !sortReverse"> Estado </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.estatus'; sortReverse = !sortReverse"> Estado </a></th>
               <th>Opc.</th>
             </tr>
           </thead>
