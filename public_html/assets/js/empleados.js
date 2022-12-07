@@ -7,6 +7,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   $scope.dato = {};
   $scope.datos = [];
   $scope.perfiles = [];
+  $scope.servicios = [];
   $scope.createForm = {};
   
   $http({
@@ -21,6 +22,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
           console.log(response);
           $scope.datos = response.data.datos;
           $scope.perfiles = response.data.perfiles;
+          $scope.servicios = response.data.servicios;
           console.log($scope.datos);
       },
       function errorCallback(response) {

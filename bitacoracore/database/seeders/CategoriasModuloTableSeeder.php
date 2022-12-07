@@ -16,9 +16,9 @@ class CategoriasModuloTableSeeder extends Seeder
     public function run()
     {
         $categorias = [
+            'Visitas',
             'Configuración',
             'Reportes',
-            'General',
         ];
         foreach ($categorias as $categoria) {
             DB::table('categoria_modulos')->insert([

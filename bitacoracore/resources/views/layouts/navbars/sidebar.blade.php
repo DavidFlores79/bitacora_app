@@ -98,28 +98,20 @@
             <ul class="navbar-nav mt-5">
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('home') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> Inicio
+                    <i class="fas fa-home text-primary"></i> Inicio
                     </a>
                 </li>
-                {{-- @isset($modulos)
-                    @foreach ($modulos as $key => $modulo)
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('home') }}">
-                                <i class="ni {{ $modulo['icono'] }}"></i> {{ $modulo['nombre'] }}
-                            </a>
-                        </li>
-                    @endforeach
-                @endisset --}}
+
 
                 @foreach ($modulosConCategorias as $key => $modulos)
                     <li class="nav-item ">
-                        <a class="nav-link text-white" href="#navbar-examples" data-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="navbar-examples">
-                            <i class="fab fa-laravel" style="color: #f4645f;"></i>
+                        <a class="nav-link text-white" href="#navbar-examples{{ $loop->index }}" data-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="navbar-examples{{ $loop->index }}">
+                            <i class="fas fa-stream" style="color: #f4645f;"></i>
                             <span class="nav-link-text">{{ $key }}</span>
                         </a>
 
-                        <div class="collapse" id="navbar-examples">
+                        <div class="collapse" id="navbar-examples{{ $loop->index }}">
                             <ul class="nav nav-sm flex-column">
                                 @foreach ($modulos as $key => $modulo)
                                     <li class="nav-item">

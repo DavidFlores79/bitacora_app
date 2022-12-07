@@ -17,7 +17,7 @@ class ModuloPerfilPermisoTableSeeder extends Seeder
     public function run()
     {
 
-        //Crea los permisos iniciales para Helpdesk
+        //Crea los permisos iniciales para Empleados
         $perfil = Perfil::where('nombre', 'Seguridad')->first();
 
         for ($j = 8; $j <= 8; $j++) {
@@ -30,7 +30,12 @@ class ModuloPerfilPermisoTableSeeder extends Seeder
         //Crea los permisos iniciales para Administrador
         $perfil = Perfil::where('nombre', 'Administrador')->first();
 
-        for ($j = 1; $j <= 5; $j++) {
+        for ($j = 1; $j <= 2; $j++) {
+            for ($i = 1; $i <= 4; $i++) {
+                $syncData2[] = ['modulo_id' => $j, 'permiso_id' => $i];
+            }
+        }
+        for ($j = 8; $j <= 8; $j++) {
             for ($i = 1; $i <= 4; $i++) {
                 $syncData2[] = ['modulo_id' => $j, 'permiso_id' => $i];
             }
@@ -40,7 +45,7 @@ class ModuloPerfilPermisoTableSeeder extends Seeder
         //Crea los permisos iniciales para Cliente
         $perfil = Perfil::where('nombre', 'SuperUsuario')->first();
 
-        for ($j = 6; $j <= 7; $j++) {
+        for ($j = 1; $j <= 9; $j++) {
             for ($i = 1; $i <= 4; $i++) {
                 $syncData3[] = ['modulo_id' => $j, 'permiso_id' => $i];
             }

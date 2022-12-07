@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Scopes\ServicioScope;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -79,4 +80,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->where('perfil_id', '=', 2);
     }
+
+    public function scopeServicio($query, $servicio_id)
+    {
+        return (auth()->user()->perfil_id != 1) ?  $query->where('servicio_id', $servicio_id) : $query;
+    }
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::addGlobalScope(new ServicioScope);
+    // }
 }

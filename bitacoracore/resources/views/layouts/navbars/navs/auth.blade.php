@@ -24,6 +24,7 @@
                         <h6 class="text-overflow">¡Bienvenido!</h6>
                         <div class="mb-1 text-sm">{{ auth()->user()->miPerfil->nombre }}</div>
                         <div class="mb-0 text-sm text-dark font-weight-bold">{{ auth()->user()->name }}</div>
+                        <div class="mb-0 text-sm text-dark font-weight-bold">{{ auth()->user()->servicio->nombre }}</div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">

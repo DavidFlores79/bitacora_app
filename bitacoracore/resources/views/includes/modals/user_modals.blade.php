@@ -22,6 +22,16 @@
 
           </div>
           <div class="row">
+            @if(auth()->user()->perfil_id == 1)
+            <div class="col-md-12 py-2">
+              <label for="servicio" class="form-label">Servicio</label>
+              <select id="servicio" class="form-control" ng-model="createForm.servicio" required>
+                <option value="" disabled>Selecciona...</option>
+                <option ng-repeat="servicio in servicios" value="@{{ servicio.id }}">
+                  @{{ servicio.nombre }}</option>
+              </select>
+            </div>
+            @endif
             <div class="col-md-6 py-2">
               <label for="perfil" class="form-label">Perfil del Usuario</label>
               <select id="perfil" class="form-control" ng-model="createForm.perfil" required>

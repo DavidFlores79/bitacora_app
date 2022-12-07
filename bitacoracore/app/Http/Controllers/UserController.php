@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perfil;
+use App\Models\Servicio;
 use App\Models\User;
 use App\Traits\BitacoraTrait;
 use App\Traits\MenuTrait;
@@ -27,15 +28,17 @@ class UserController extends Controller
 
     function getEmpleados()
     {
-        $datos = User::empleados()->get();
+        $datos = User::empleados()->servicio(auth()->user()->servicio_id)->get();
         $perfiles = Perfil::empleados()->get();
+        $servicios = Servicio::all();
 
         if (is_object($datos)) {
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil'),
+                'datos' => $datos->load('miPerfil', 'servicio'),
                 'perfiles' => $perfiles,
+                'servicios' => $servicios,
             ];
         } else {
             $data = [
@@ -49,15 +52,17 @@ class UserController extends Controller
 
     function getAdmin()
     {
-        $datos = User::administradores()->get();
+        $datos = User::administradores()->servicio(auth()->user()->servicio_id)->get();
         $perfiles = Perfil::administradores()->get();
+        $servicios = Servicio::all();
 
         if (is_object($datos)) {
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil'),
+                'datos' => $datos->load('miPerfil', 'servicio'),
                 'perfiles' => $perfiles,
+                'servicios' => $servicios,
             ];
         } else {
             $data = [
@@ -77,7 +82,7 @@ class UserController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil'),
+                'datos' => $datos->load('miPerfil', 'servicio'),
             ];
         } else {
             $data = [
@@ -106,7 +111,8 @@ class UserController extends Controller
             'perfil' => 'required|numeric|exists:perfils,id',
             'telefono' => 'nullable|numeric|digits_between:10,10',
             'email' => 'required|email|unique:users,email',
-            //'estatus' => 'required',
+            'nickname' => 'required|string|unique:users,nickname',
+            'servicio' => 'nullable|exists:servicios,id',
             'password' => 'required|min:6|max:255',
         ];
 
@@ -121,7 +127,7 @@ class UserController extends Controller
             $dato->nickname = $request->input('nickname');
             $dato->telefono = $request->input('telefono');
             $dato->password = Hash::make($request->input('password'));
-            $dato->servicio_id = auth()->user()->servicio_id;
+            $dato->servicio_id = ($request->input('servicio')) ? $request->servicio : auth()->user()->servicio_id;
 
             $dato->save();
 
@@ -130,7 +136,7 @@ class UserController extends Controller
                     'code' => 200,
                     'status' => 'success',
                     'message' => 'Creado satisfactoriamente.',
-                    'dato' => $dato->load('miPerfil'),
+                    'dato' => $dato->load('miPerfil', 'servicio'),
                 ];
             }
             return response()->json($data, $data['code']);
@@ -181,7 +187,7 @@ class UserController extends Controller
                     'code' => 200,
                     'status' => 'success',
                     'message' => 'Editado satisfactoriamente.',
-                    'dato' => $dato->load('miPerfil'),
+                    'dato' => $dato->load('miPerfil', 'servicio'),
                 ];
 
                 return response()->json($data, $data['code']);

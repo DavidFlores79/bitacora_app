@@ -11,7 +11,7 @@ class Perfil extends Model
 
     public function modulos_relacion()
     {
-        return $this->belongsToMany(Modulo::class, 'modulo_perfil_permiso')->with('categorias');
+        return $this->belongsToMany(Modulo::class, 'modulo_perfil_permiso')->orderBy('categoria_modulo_id', 'asc')->with('categorias');
     }
     public function permisos()
     {

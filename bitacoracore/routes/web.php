@@ -105,4 +105,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('visitas', [App\Http\Controllers\VisitaController::class, 'update']);
         Route::delete("visitas/{id}", [App\Http\Controllers\VisitaController::class, "destroy"]);
 
+        //servicios
+        Route::get('servicios', [App\Http\Controllers\ServicioController::class, 'index'])->name('servicios');
+        Route::get('servicios/getinfo', [App\Http\Controllers\ServicioController::class, 'getInfo']);
+        Route::get('servicios/create', [App\Http\Controllers\ServicioController::class, 'create']);
+        Route::get('servicios/edit', [App\Http\Controllers\ServicioController::class, 'edit']);
+        Route::post('servicios', [App\Http\Controllers\ServicioController::class, 'store']);
+        Route::put('servicios', [App\Http\Controllers\ServicioController::class, 'update']);
+        Route::delete("servicios/{id}", [App\Http\Controllers\ServicioController::class, "destroy"]);
+
 });

@@ -11,6 +11,7 @@ app.controller(
     $scope.dato = {};
     $scope.datos = [];
     $scope.perfiles = [];
+    $scope.servicios = [];
     $scope.createForm = {};
 
 
@@ -43,6 +44,7 @@ app.controller(
         console.log(response);
         $scope.datos = response.data.datos;
         $scope.perfiles = response.data.perfiles;
+        $scope.servicios = response.data.servicios;
         console.log($scope.datos);
       },
       function errorCallback(response) {

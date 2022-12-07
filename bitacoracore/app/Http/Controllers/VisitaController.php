@@ -29,7 +29,7 @@ class VisitaController extends Controller
     }
 
     public function getVisitas(){
-        $visitas = Visita::orderBy('id', 'DESC')->get();
+        $visitas = Visita::orderBy('id', 'DESC')->servicio(auth()->user()->servicio_id)->get();
 
         $data = [
             'code' => 200,

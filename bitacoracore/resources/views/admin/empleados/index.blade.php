@@ -24,6 +24,9 @@
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.apellido'; sortReverse = !sortReverse"> Apellidos </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.perfil_id'; sortReverse = !sortReverse"> Perfil </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nickname'; sortReverse = !sortReverse"> Nickname </a></th>
+              @if(auth()->user()->perfil_id == 1)
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.servicio.nombre'; sortReverse = !sortReverse"> Servicio </a></th>
+              @endif
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'usuario.estatus'; sortReverse = !sortReverse"> Estado </a></th>
               <th>Opc.</th>
@@ -35,6 +38,9 @@
               <td style="min-width: 150px;">@{{ dato.apellido }}</td>
               <td style="min-width: 150px;">@{{ dato.mi_perfil.nombre }}</td>
               <td style="min-width: 150px;">@{{ dato.nickname }}</td>
+              @if(auth()->user()->perfil_id == 1)
+              <td style="min-width: 150px;">@{{ dato.servicio.nombre }}</td>
+              @endif
               <td style="min-width: 150px;">@{{ dato.email }}</td>
               <td ng-if="dato.bloqueado == 0"><span class="badge badge-pill badge-success">Activo</span></td>
               <td ng-if="dato.bloqueado == 1"><span class="badge badge-pill badge-danger">Inactivo</span></td>
