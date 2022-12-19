@@ -15,7 +15,7 @@ trait OSNotificationTrait
                 "app_id" => $this->getOneSignalAppId(),
                 "prority" => 10,
                 "included_segments" => [
-                    "SuperUser"
+                    "SuperUsuarios"
                 ],
                 "headings" => [
                     "en" => "Bitacora Web",
