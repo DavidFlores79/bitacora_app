@@ -13,7 +13,6 @@ trait OSNotificationTrait
 
             $dataRaw = [
                 "app_id" => $this->getOneSignalAppId(),
-                // "app_id" => "471d2d5f-4105-476e-a74d-68bf9277053e",
                 "prority" => 10,
                 "included_segments" => [
                     "SuperUsuarios"
@@ -27,10 +26,10 @@ trait OSNotificationTrait
                     "en" => $message,
                     "es" => $message
                 ],
-                "url" => "https=>//itsoft.mx",
-                "big_picture" => "https=>//calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png",
+                "url" => "https://itsoft.mx",
+                "big_picture" => "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png",
                 "ios_attachments" => [
-                    "id" => "https=>//calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png"
+                    "id" => "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png"
                 ],
                 "name" => "INTERNAL_CAMPAIGN_NAME"
             ];
@@ -48,7 +47,6 @@ trait OSNotificationTrait
         try {
             $response = Http::withHeaders([
                 "Authorization" => $this->getBasicAuth(),
-                // "Authorization" => "Basic ZDVlNzk5YjQtYTRhNC00ZTE2LTkzYmYtNjlkNzUxZDMxMzk1",
                 "Content-Type" => "application/json",
                 "Accept" => "application/json"
             ])->timeout($timeout)->post($this->getOneSignalUri() . "/api/v1/notifications", $dataRaw);
