@@ -9,10 +9,11 @@ trait OSNotificationTrait
 
     public function sendNotification($message)
     {
-        if (!empty($message)) {
+        if ($message) {
 
             $dataRaw = [
-                "app_id" => $this->getOneSignalAppId(),
+                // "app_id" => $this->getOneSignalAppId(),
+                "app_id" => "471d2d5f-4105-476e-a74d-68bf9277053e",
                 "prority" => 10,
                 "included_segments" => [
                     "SuperUsuarios"
@@ -46,7 +47,8 @@ trait OSNotificationTrait
 
         try {
             $response = Http::withHeaders([
-                "Authorization" => $this->getBasicAuth(),
+                // "Authorization" => $this->getBasicAuth(),
+                "Authorization" => "Basic ZDVlNzk5YjQtYTRhNC00ZTE2LTkzYmYtNjlkNzUxZDMxMzk1",
                 "Content-Type" => "application/json",
                 "Accept" => "application/json"
             ])->timeout($timeout)->post($this->getOneSignalUri() . "/api/v1/notifications", $dataRaw);
