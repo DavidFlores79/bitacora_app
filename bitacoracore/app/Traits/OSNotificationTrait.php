@@ -26,18 +26,14 @@ trait OSNotificationTrait
                     "en" => $message,
                     "es" => $message
                 ],
-                "url" => "https://itsoft.mx",
-                "big_picture" => "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png",
-                "ios_attachments" => [
-                    "id" => "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png"
-                ],
+                "url" => "https://www.itsoft.mx",
                 "name" => "INTERNAL_CAMPAIGN_NAME"
             ];
         } else {
             $data = [
                 'code' => 400,
                 'status' => 'error',
-                'message' => 'Ningún usuario está conectado actualmente al Sistema de Notificaciones (OS). Intente más tarde.',
+                'message' => 'Es mandatorio enviar un mensaje.',
             ];
         }
 
@@ -58,7 +54,7 @@ trait OSNotificationTrait
                     "status" => "success",
                     "message" => "Se ha enviado a: " . $response->json('recipients') . " destinatarios.",
                 ];
-                $this->guardarEvento("Notificaciones OneSignal", "Se ha enviado Notificacion OS a SuperUser con el mensaje: " . $message);
+                $this->guardarEvento("Notificaciones OneSignal", "ha iniciado sesión desde la App Móvil (API-Rest).");
             } else {
                 $data = [
                     "code" => 400,
