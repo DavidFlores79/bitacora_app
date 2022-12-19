@@ -22,7 +22,7 @@ class SyncController extends Controller
             // if(Visita::where("app_id", $visita['id'])->count() == 0) {
                 $registro = new Sync();
                 $registro->app_id = $visita['id'];
-                $registro->servicio_id = auth()->user()->servicio[0]["id"] ?? 1;
+                $registro->servicio_id = auth()->user()->servicios[0]["id"] ?? 1;
                 $registro->nombre_visitante = $visita['nombreVisitante'];
                 $registro->nombre_quien_visita = $visita['nombreAQuienVisita'];
                 $registro->motivo_visita = $visita['motivoVisita'];
