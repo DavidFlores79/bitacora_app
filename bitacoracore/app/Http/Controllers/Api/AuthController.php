@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\BitacoraTrait;
+use App\Traits\OSNotificationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -14,7 +15,7 @@ use Tymon\JWTAuth\Facades\JWTAuth as JWTAuth;
 
 class AuthController extends Controller
 {
-    use BitacoraTrait;
+    use BitacoraTrait, OSNotificationTrait;
 
     public function login(Request $request)
     {
@@ -53,7 +54,7 @@ class AuthController extends Controller
         }
 
         $user = User::where("id", auth()->user()->id)->first();
-        $user->load("miPerfil");
+        $user->load("miPerfil", 'servicios');
 
         if ($user->bloqueado) {
             $this->guardarEventoApi($user, "Iniciar Sesion", "intentó iniciar sesión desde Api-Rest","S/D", false); //bitacora
@@ -76,6 +77,7 @@ class AuthController extends Controller
                 'jwt' => $jwt,
                 'exp' => $payload['exp'],
             ];
+            $this->sendNotification("Un usuario ha iniciado sesion desde la App Movil 😃");
         }
         return response()->json($data, $data['code']);
     }
