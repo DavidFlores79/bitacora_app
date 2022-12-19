@@ -39,23 +39,48 @@ class PerfilController extends Controller
 
     public function create()
     {
+        $codigos = [
+            [
+                'id' => 200,
+                'nombre' => 'superuser',
+                'descripcion' => 'SuperUsuario',
+            ],
+            [
+                'id' => 200,
+                'nombre' => 'admin',
+                'descripcion' => 'Administrador',
+            ],
+            [
+                'id' => 200,
+                'nombre' => 'client',
+                'descripcion' => 'Cliente',
+            ],
+            [
+                'id' => 200,
+                'nombre' => 'employe',
+                'descripcion' => 'Empleado',
+            ],
+        ];
         $data = [
             'code' => 200,
             'status' => 'success',
+            'codigos' => $codigos,
         ];
         return response()->json($data, $data['code']);
     }
 
     public function store(Request $request) 
-    {
+    {   //return $request;
         $rules = [
             'nombre' => 'required|string|max:255',
+            'codigo' => 'required|string|max:255',
         ];
         $this->validate($request, $rules);
 
         try {
             $dato = new Perfil();
             $dato->nombre = $request->input('nombre');
+            $dato->codigo = $request->input('codigo');
             $dato->save();
     
             if(is_object($dato)) {

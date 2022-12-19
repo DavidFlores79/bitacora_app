@@ -52,9 +52,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Perfil::class, "perfil_id");
     }
 
-    public function servicio()
+    public function servicios()
     {
-        return $this->belongsTo(Servicio::class, "servicio_id");
+        return $this->belongsToMany(Servicio::class);
     }
 
     public function perfil()
@@ -70,20 +70,52 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
+    
     public function scopeEmpleados($query)
     {
-        return $query->where('perfil_id', '<>', 1)->where('perfil_id', '<>', 2);
+        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->get();
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->get();
+        $perfilClient = Perfil::where("codigo", "client")->select("id")->get();
+
+        foreach ($perfilSuperUser as $key => $value) {
+            $query->where('perfil_id', '<>', $value->id);
+        }
+        foreach ($perfilClient as $key => $value) {
+            $query->where('perfil_id', '<>', $value->id);
+        }
+        foreach ($perfilAdmin as $key => $value) {
+            $query->where('perfil_id', '<>', $value->id);
+        }
+        
+        return $query;
     }
 
     public function scopeAdministradores($query)
     {
-        return $query->where('perfil_id', '=', 2);
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->get();
+
+        foreach ($perfilAdmin as $key => $value) {
+            $query->where('perfil_id', 'like', $value->id);
+        }
+
+        return $query;
     }
 
-    public function scopeServicio($query, $servicio_id)
+    public function scopeClientes($query)
     {
-        return (auth()->user()->perfil_id != 1) ?  $query->where('servicio_id', $servicio_id) : $query;
+        $perfilClient = Perfil::where("codigo", "client")->select("id")->get();
+
+        foreach ($perfilClient as $key => $value) {
+            $query->where('perfil_id', 'like', $value->id);
+        }
+
+        return $query;
+    }
+
+    public function scopeServicio($query)
+    {
+        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->first();
+        return (auth()->user()->perfil_id != $perfilSuperUser->id) ?  $query : $query;
     }
 
     // protected static function boot()

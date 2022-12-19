@@ -95,6 +95,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('administradores', [App\Http\Controllers\UserController::class, 'store']);
         Route::put('administradores', [App\Http\Controllers\UserController::class, 'update']);
         Route::delete("administradores/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
+
+        //Clientes
+        Route::get('clientes', [App\Http\Controllers\UserController::class, 'indexClient'])->name('clientes');
+        Route::get('clientes/getclientes', [App\Http\Controllers\UserController::class, 'getClientes']);
+        Route::get('clientes/create', [App\Http\Controllers\UserController::class, 'create']);
+        Route::get('clientes/edit', [App\Http\Controllers\UserController::class, 'edit']);
+        Route::post('clientes', [App\Http\Controllers\UserController::class, 'store']);
+        Route::put('clientes', [App\Http\Controllers\UserController::class, 'update']);
+        Route::delete("clientes/{id}", [App\Http\Controllers\UserController::class, "destroy"]);
         
         
         

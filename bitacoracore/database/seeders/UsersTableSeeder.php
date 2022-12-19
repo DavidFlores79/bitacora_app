@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'perfil_id' => 1,
-            'servicio_id' => 1,
+            // 'servicio_id' => 1,
             'nombre' => 'Super',
             'apellido' => 'Usuario',
             'nickname' => 'superuser',
@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'perfil_id' => 2,
-            'servicio_id' => 1,
+            // 'servicio_id' => 1,
             'nombre' => 'Administrador',
             'apellido' => '',
             'nickname' => 'admin',
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'perfil_id' => 1,
-            'servicio_id' => 1,
+            // 'servicio_id' => 1,
             'nombre' => 'david',
             'apellido' => 'Flores',
             'nickname' => 'dflores',
@@ -54,8 +54,8 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'perfil_id' => 3,
-            'servicio_id' => 2,
+            'perfil_id' => 4,
+            // 'servicio_id' => 2,
             'nombre' => 'Empleado',
             'apellido' => 'Vigilante',
             'nickname' => 'empleado',
@@ -67,8 +67,8 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'perfil_id' => 3,
-            'servicio_id' => 4,
+            'perfil_id' => 4,
+            // 'servicio_id' => 4,
             'nombre' => 'Empleado',
             'apellido' => 'Santa Fe',
             'nickname' => 'santafe',

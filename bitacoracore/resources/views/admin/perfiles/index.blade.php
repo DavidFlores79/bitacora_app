@@ -72,6 +72,15 @@
                         <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre" ng-model="createForm.nombre" required autofocus>
                     </div>
                     <div class="form-group">
+                    <label for="nombre">Código:</label>
+                      <select class="form-control" 
+                          ng-options="codigo.nombre as codigo.descripcion for codigo in codigos" 
+                          ng-model="createForm.codigo"
+                          required>
+                          <option value="" selected>Seleciona una opción... </option>
+                      </select>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
                     </div>
                 </form>

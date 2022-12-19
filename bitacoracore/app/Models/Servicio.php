@@ -10,4 +10,10 @@ class Servicio extends Model
     use HasFactory;
     protected $table = 'servicios';
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+
 }

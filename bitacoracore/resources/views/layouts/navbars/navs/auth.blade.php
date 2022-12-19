@@ -23,8 +23,11 @@
                     <div class=" dropdown-header">
                         <h6 class="text-overflow">¡Bienvenido!</h6>
                         <div class="mb-1 text-sm">{{ auth()->user()->miPerfil->nombre }}</div>
+                        @if(auth()->user()->perfil_id != 1)
+                            <div class="mb-1 text-sm">{{ auth()->user()->servicios[0]['nombre'] }}</div>
+                        @endif
                         <div class="mb-0 text-sm text-dark font-weight-bold">{{ auth()->user()->name }}</div>
-                        <div class="mb-0 text-sm text-dark font-weight-bold">{{ auth()->user()->servicio->nombre }}</div>
+                        <!-- <div class="mb-0 text-sm text-dark font-weight-bold"></div> -->
                     </div>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('profile.edit') }}" class="dropdown-item">

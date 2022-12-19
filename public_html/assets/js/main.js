@@ -13,4 +13,6 @@ $(function () {
       $("#permisos").fadeOut("slow");
     }, 3000);
   }
+
+  $('.selectpicker').selectpicker({deselectAllText: 'Quitar todos', selectAllText: 'Elegir todos'});
 });

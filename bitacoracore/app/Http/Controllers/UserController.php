@@ -26,9 +26,15 @@ class UserController extends Controller
         return view('admin.administradores.index', ['modulosConCategorias' => $modulos]);
     }
 
+    public function indexClient()
+    {
+        $modulos = $this->getModulosPerfil();
+        return view('admin.clientes.index', ['modulosConCategorias' => $modulos]);
+    }
+
     function getEmpleados()
     {
-        $datos = User::empleados()->servicio(auth()->user()->servicio_id)->get();
+        $datos = User::empleados()->get();
         $perfiles = Perfil::empleados()->get();
         $servicios = Servicio::all();
 
@@ -36,7 +42,7 @@ class UserController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil', 'servicio'),
+                'datos' => $datos->load('miPerfil', 'servicios'),
                 'perfiles' => $perfiles,
                 'servicios' => $servicios,
             ];
@@ -52,7 +58,7 @@ class UserController extends Controller
 
     function getAdmin()
     {
-        $datos = User::administradores()->servicio(auth()->user()->servicio_id)->get();
+        $datos = User::administradores()->get();
         $perfiles = Perfil::administradores()->get();
         $servicios = Servicio::all();
 
@@ -60,7 +66,31 @@ class UserController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil', 'servicio'),
+                'datos' => $datos->load('miPerfil', 'servicios'),
+                'perfiles' => $perfiles,
+                'servicios' => $servicios,
+            ];
+        } else {
+            $data = [
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'Ocurrió un error al realizar la búsqueda.',
+            ];
+        }
+        return response()->json($data, $data['code']);
+    }
+
+    function getClientes()
+    {
+        $datos = User::clientes()->get();
+        $perfiles = Perfil::clientes()->get();
+        $servicios = Servicio::all();
+
+        if (is_object($datos)) {
+            $data = [
+                'code' => 200,
+                'status' => 'success',
+                'datos' => $datos->load('miPerfil', 'servicios'),
                 'perfiles' => $perfiles,
                 'servicios' => $servicios,
             ];
@@ -82,7 +112,7 @@ class UserController extends Controller
             $data = [
                 'code' => 200,
                 'status' => 'success',
-                'datos' => $datos->load('miPerfil', 'servicio'),
+                'datos' => $datos->load('miPerfil', 'servicios'),
             ];
         } else {
             $data = [
@@ -104,7 +134,7 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   //return $request;
         $rules = [
             'nombre' => 'required|string|max:255',
             'apellido' => 'nullable|string|max:255',
@@ -112,7 +142,8 @@ class UserController extends Controller
             'telefono' => 'nullable|numeric|digits_between:10,10',
             'email' => 'required|email|unique:users,email',
             'nickname' => 'required|string|unique:users,nickname',
-            'servicio' => 'nullable|exists:servicios,id',
+            'servicios_asig' => 'nullable|array',
+            'servicios_asig.*.id' => 'nullable|exists:servicios,id',
             'password' => 'required|min:6|max:255',
         ];
 
@@ -127,18 +158,25 @@ class UserController extends Controller
             $dato->nickname = $request->input('nickname');
             $dato->telefono = $request->input('telefono');
             $dato->password = Hash::make($request->input('password'));
-            $dato->servicio_id = ($request->input('servicio')) ? $request->servicio : auth()->user()->servicio_id;
             $dato->estatus = 1;
             $dato->bloqueado = 0;
-
             $dato->save();
+
+            $servicios_asig = ($request->servicios_asig == null) ? [] : $request->servicios_asig;
+            if (count($servicios_asig) > 0) {
+                for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
+                    $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
+                }
+                $dato->servicios()->detach();
+                $dato->servicios()->sync($syncData);
+            }
 
             if (is_object($dato)) {
                 $data = [
                     'code' => 200,
                     'status' => 'success',
                     'message' => 'Creado satisfactoriamente.',
-                    'dato' => $dato->load('miPerfil', 'servicio'),
+                    'dato' => $dato->load('miPerfil', 'servicios'),
                 ];
             }
             return response()->json($data, $data['code']);
@@ -163,10 +201,15 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        //return $request;
+        // return $request;
         //falta validar request
         $rules = [
             'nombre' => 'required|string|max:255',
+            'apellido' => 'nullable|string|max:255',
+            'telefono' => 'nullable|numeric|digits_between:10,10',
+            'perfil_id' => 'required|numeric|exists:perfils,id',
+            'servicios_asig' => 'nullable|array',
+            'servicios_asig.*.id' => 'nullable|exists:servicios,id',
         ];
         $this->validate($request, $rules);
 
@@ -182,14 +225,23 @@ class UserController extends Controller
                 $dato->email = $request->input('email');
                 $dato->nickname = $request->input('nickname');
                 $dato->telefono = $request->input('telefono');
-                if($request->input('password')) $dato->password = Hash::make($request->input('password'));
+                if ($request->input('password')) $dato->password = Hash::make($request->input('password'));
                 $dato->save();
+
+                $servicios_asig_edit = ($request->servicios_asig_edit == null) ? [] : $request->servicios_asig_edit;
+                if (count($servicios_asig_edit) > 0) {
+                    for ($i = 0; $i <= count($servicios_asig_edit) - 1; $i++) {
+                        $syncData[] = ['servicio_id' => $servicios_asig_edit[$i]['id']];
+                    }
+                    $dato->servicios()->detach();
+                    $dato->servicios()->sync($syncData);
+                }
 
                 $data = [
                     'code' => 200,
                     'status' => 'success',
                     'message' => 'Editado satisfactoriamente.',
-                    'dato' => $dato->load('miPerfil', 'servicio'),
+                    'dato' => $dato->load('miPerfil', 'servicios'),
                 ];
 
                 return response()->json($data, $data['code']);

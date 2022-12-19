@@ -14,24 +14,6 @@ app.controller(
     $scope.servicios = [];
     $scope.createForm = {};
 
-
-    // $window.OneSignal = $window.OneSignal || [];
-    // OneSignal.push(function() {
-    //     OneSignal.init({
-    //         appId: "471d2d5f-4105-476e-a74d-68bf9277053e",
-    //     });
-
-    //     OneSignal.sendTag("perfil", "admin", function(tagsSent) {
-    //         console.log('Perfil admin');
-    //     });
-
-
-    //     OneSignal.getUserId(function(userId) {
-    //         console.log(userId);
-    //     });
-    // });
-
-
     $http({
       url: "administradores/getadmin",
       method: "GET",
@@ -69,6 +51,9 @@ app.controller(
         function successCallback(response) {
           console.log(response);
           $("#createForm").trigger("reset");
+          // Remover valores de todos los selectpicker y refresh
+          $(".selectpicker").selectpicker("deselectAll");
+          $(".selectpicker").selectpicker("refresh");
           $("#agregarModal").modal("show");
         },
         function errorCallback(response) {
@@ -83,6 +68,17 @@ app.controller(
     };
 
     $scope.store = function () {
+      let servicios = [];
+
+      $.each($("#servicios_asig option:selected"), function () {
+        console.log($(this).val());
+        let id = $(this).val();
+        let servicio = new Object();
+        servicio.id = id;
+        servicios.push(servicio);
+      });
+      $scope.createForm.servicios_asig = servicios;
+
       $http({
         url: "empleados",
         method: "POST",
@@ -127,7 +123,7 @@ app.controller(
     $scope.edit = function (dato) {
       console.log("cat: ", dato);
       $scope.dato = dato;
-      $('#edit-id').val(dato.id);
+      $("#edit-id").val(dato.id);
 
       $http({
         url: "administradores/edit",
@@ -139,6 +135,16 @@ app.controller(
       }).then(
         function successCallback(response) {
           console.log(response);
+          // Remover valores de todos los selectpicker y refresh
+          $(".selectpicker").selectpicker("deselectAll");
+          $(".selectpicker").selectpicker("refresh");
+
+          let seleccion = [];
+          for (var [key, value] of Object.entries($scope.dato.servicios)) {
+            seleccion.push(value.id);
+          }
+          $("#servicios_asig_edit").selectpicker("val", seleccion);
+
           $("#editarModal").modal("show");
         },
         function errorCallback(response) {
@@ -153,10 +159,21 @@ app.controller(
     };
 
     $scope.update = function () {
-        let dato_editado = $scope.dato;
+      let dato_editado = $scope.dato;
+
+      let servicios = [];
+
+      $.each($("#servicios_asig_edit option:selected"), function () {
+        console.log($(this).val());
+        let id = $(this).val();
+        let servicio = new Object();
+        servicio.id = id;
+        servicios.push(servicio);
+      });
+      dato_editado.servicios_asig_edit = servicios;
 
       $http({
-        url: `empleados`,
+        url: `administradores`,
         method: "PUT",
         data: dato_editado,
         headers: {

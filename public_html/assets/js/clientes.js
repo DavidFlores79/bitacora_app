@@ -1,6 +1,6 @@
-var app = angular.module('empleados', [ 'angularUtils.directives.dirPagination' ]);
+var app = angular.module('clientes', [ 'angularUtils.directives.dirPagination' ]);
 
-app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike) {
+app.controller( 'clientes', function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.currentPage = 1;
   $scope.pageSize = 11;
 
@@ -11,7 +11,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   $scope.createForm = {};
   
   $http({
-      url: 'empleados/getempleados',
+      url: 'clientes/getclientes',
       method: 'GET',
       headers: {
           'Content-Type': 'application/json',
@@ -23,7 +23,6 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
           $scope.datos = response.data.datos;
           $scope.perfiles = response.data.perfiles;
           $scope.servicios = response.data.servicios;
-          console.log($scope.datos);
       },
       function errorCallback(response) {
           console.log(response);
@@ -38,7 +37,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   $scope.create = function () {
 
       $http({
-          url: 'empleados/create',
+          url: 'clientes/create',
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -66,19 +65,19 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
 
   $scope.store = function () {
 
-        let servicios = [];
+    let servicios = [];
 
-        $.each($('#servicios_asig option:selected'), function () {
-        console.log($(this).val());
-        let id = $(this).val();
-        let servicio = new Object();
-        servicio.id = id;
-        servicios.push(servicio);
-        })
-        $scope.createForm.servicios_asig = servicios;
+    $.each($('#servicios_asig option:selected'), function () {
+      console.log($(this).val());
+      let id = $(this).val();
+      let servicio = new Object();
+      servicio.id = id;
+      servicios.push(servicio);
+    })
+    $scope.createForm.servicios_asig = servicios;
 
       $http({
-          url: 'empleados',
+          url: 'clientes',
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -120,13 +119,12 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
   }
 
   $scope.edit = function (dato) {
-      console.log('cat: ', dato);
+      console.log('dato escogido: ', dato);
       $scope.dato = dato;
-    //   $('#edit-nombre').val(dato.nombre);
       $('#edit-id').val(dato.id);
       
       $http({
-          url: 'empleados/edit',
+          url: 'clientes/edit',
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -135,7 +133,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
       }).then(
           function successCallback(response) {
               console.log(response);
-
+              
               // Remover valores de todos los selectpicker y refresh
               $('.selectpicker').selectpicker('deselectAll');
               $('.selectpicker').selectpicker('refresh');
@@ -159,26 +157,23 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
       );
   }
 
-  $scope.updateSelected = function (perfil_selected) {
-    console.log(perfil_selected);
-  }
-
   $scope.update = function () {
-      let dato_editado = $scope.dato;
+    let dato_editado = $scope.dato;
 
-      let servicios = [];
+    let servicios = [];
 
-        $.each($('#servicios_asig_edit option:selected'), function () {
-            console.log($(this).val());
-            let id = $(this).val();
-            let servicio = new Object();
-            servicio.id = id;
-            servicios.push(servicio);
-        })
-        dato_editado.servicios_asig_edit = servicios;
+    $.each($('#servicios_asig_edit option:selected'), function () {
+        console.log($(this).val());
+        let id = $(this).val();
+        let servicio = new Object();
+        servicio.id = id;
+        servicios.push(servicio);
+    })
+
+    dato_editado.servicios_asig_edit = servicios;
 
       $http({
-          url: `empleados`,
+          url: `clientes`,
           method: 'PUT',
           data: dato_editado,
           headers: {
@@ -187,15 +182,16 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
           },
       }).then(
           function successCallback(response) {
-              console.log('response: ', response);
-              $scope.dato = response.data.dato;
-              $scope.datos = $scope.datos.map(dato => (dato.id == response.data.dato.id) ? dato = response.data.dato : dato);
-              $('#editarModal').modal('hide');
-              swal(
-                  'Mensaje del Sistema',
-                  response.data.message,
-                  response.data.status
-              );
+                console.log('response: ', response);
+                $scope.dato = response.data.dato;
+                $scope.datos = $scope.datos.map(dato => (dato.id == response.data.dato.id) ? dato = response.data.dato : dato);
+                $('#editarModal').modal('hide');
+
+                swal(
+                    'Mensaje del Sistema',
+                    response.data.message,
+                    response.data.status
+                );
           },
           function errorCallback(response) {
               console.log(response);
@@ -227,7 +223,7 @@ app.controller( 'empleados', function ($scope, $http, $httpParamSerializerJQLike
       console.log('dato: ', $scope.dato);
 
       $http({
-          url: `empleados/${$scope.dato.id}`,
+          url: `clientes/${$scope.dato.id}`,
           method: 'DELETE',
           headers: {
               'Content-Type': 'application/json',

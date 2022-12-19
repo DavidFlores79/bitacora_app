@@ -21,11 +21,21 @@ class Perfil extends Model
 
     public function scopeEmpleados($query)
     {
-        return $query->where('id', '<>', 1)->where('id', '<>', 2);
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->first();
+        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->first();
+        $perfilCliente = Perfil::where("codigo", "client")->select("id")->first();
+        return $query->where('id', '<>', $perfilAdmin->id)->where('id', '<>', $perfilSuperUser->id)->where('id', '<>', $perfilCliente->id);
     }
 
     public function scopeAdministradores($query)
     {
-        return $query->where('id', '=', 2);
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->first();
+        return $query->where('id', '=', $perfilAdmin->id);
+    }
+
+    public function scopeClientes($query)
+    {
+        $perfilClient = Perfil::where("codigo", "client")->select("id")->first();
+        return $query->where('id', '=', $perfilClient->id);
     }
 }

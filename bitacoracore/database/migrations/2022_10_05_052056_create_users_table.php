@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('telefono',10)->nullable();
             $table->bigInteger('perfil_id')->unsigned();
-            $table->bigInteger('servicio_id')->unsigned();
             $table->boolean('bloqueado')->default(0);
             $table->boolean('estatus')->default(1);
             $table->string('fecha_baja')->nullable();
@@ -32,10 +31,6 @@ return new class extends Migration
         });
         Schema::table('users', function($table) {
             $table->foreign('perfil_id')->references('id')->on('perfils')->onDelete('cascade');
-        });
-
-        Schema::table('users', function($table) {
-            $table->foreign('servicio_id')->references('id')->on('servicios')->onDelete('cascade');
         });
     }
 

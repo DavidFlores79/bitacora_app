@@ -29,8 +29,7 @@
               @if(auth()->user()->perfil_id == 1)
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.servicio.nombre'; sortReverse = !sortReverse"> Servicio </a></th>
               @endif
-              <th><a class="text-body" href="#" ng-click="sortType = 'dato.servicio.nombre'; sortReverse = !sortReverse"> Servicio </a></th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th>
+              <!-- <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th> -->
               <th>Opc.</th>
             </tr>
           </thead>
@@ -43,10 +42,9 @@
               <td style="min-width: 150px;">@{{ dato.mi_perfil.nombre }}</td>
               <td style="min-width: 150px;">@{{ dato.nickname }}</td>
               @if(auth()->user()->perfil_id == 1)
-              <td style="min-width: 150px;">@{{ dato.servicio.nombre }}</td>
+              <td style="min-width: 150px;">@{{ dato['servicios'][0].nombre }}</td>
               @endif
-              <td style="min-width: 150px;">@{{ dato.servicio.nombre }}</td>
-              <td style="min-width: 150px;">@{{ dato.email }}</td>
+              <!-- <td style="min-width: 150px;">@{{ dato.email }}</td> -->
               <td class="d-flex justify-content-center">
                 <button class="btn btn-primary mr-2" ng-click="edit(dato)"><span data-toggle="tooltip" data-placement="top" title="Editar" onmouseenter="$(this).tooltip('show')"><i class="fas fa-edit"></i></button>
                 

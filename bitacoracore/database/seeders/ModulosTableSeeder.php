@@ -35,6 +35,14 @@ class ModulosTableSeeder extends Seeder
 
         DB::table('modulos')->insert([
             "categoria_modulo_id" => 2,
+            "nombre" => "Clientes",
+            "funcionalidad" => "Modulo para CRUD de Clientes",
+            "icono" => "ni-chart-bar-32 text-secondary",
+            "ruta" => "clientes",
+        ]);
+
+        DB::table('modulos')->insert([
+            "categoria_modulo_id" => 2,
             "nombre" => "Perfiles",
             "funcionalidad" => "Modulo para CRUD de Perfiles",
             "icono" => "ni-bullet-list-67 text-danger",
