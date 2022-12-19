@@ -60,7 +60,7 @@ class ModuloPerfilPermisoTableSeeder extends Seeder
                 $syncData4[] = ['modulo_id' => $j, 'permiso_id' => $i];
             }
         }
-        for ($j = 8; $j <= 8; $j++) {
+        for ($j = 8; $j <= 9; $j++) {
             for ($i = 1; $i <= 4; $i++) {
                 $syncData4[] = ['modulo_id' => $j, 'permiso_id' => $i];
             }

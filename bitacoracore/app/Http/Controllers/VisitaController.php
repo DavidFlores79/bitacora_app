@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Visita;
 use App\Traits\BitacoraTrait;
 use App\Traits\MenuTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class VisitaController extends Controller
@@ -29,7 +30,8 @@ class VisitaController extends Controller
     }
 
     public function getVisitas(){
-        $visitas = Visita::orderBy('id', 'DESC')->servicio(auth()->user()->servicio_id)->get();
+        // $datos = $this->miServicio(User::empleados()->get());
+        $visitas = Visita::orderBy('id', 'DESC')->servicios()->get();
 
         $data = [
             'code' => 200,
@@ -168,6 +170,27 @@ class VisitaController extends Controller
             ];
         }
         return response()->json($data, $data['code']);
+    }
+
+    public function miServicio($usuarios)
+    {
+
+        $datos = Collection::make(new Visita);
+
+        if (auth()->user()->perfil_id != 1) {
+            foreach ($usuarios as $key => $cadaUsuario) {
+                foreach ($cadaUsuario->servicios as $key => $servicio) {
+                    for ($i = 0; $i < count(auth()->user()->servicios); $i++) {
+                        if (auth()->user()->servicios[$i]['id'] == $servicio->id) {
+                            $datos->add($cadaUsuario);
+                        }
+                    }
+                }
+            }
+        } else {
+            $datos = $usuarios;
+        }
+        return $datos;
     }
     
 }

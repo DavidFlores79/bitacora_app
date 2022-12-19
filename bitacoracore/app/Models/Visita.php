@@ -25,8 +25,14 @@ class Visita extends Model
         return $this->belongsTo(TipoVehiculo::class, "tipo_vehiculo_id");
     }
 
-    public function scopeServicio($query, $servicio_id)
+    public function scopeServicios($query)
     {
-        return (auth()->user()->perfil_id != 1) ?  $query->where('servicio_id', $servicio_id) : $query;
+        $servicios = auth()->user()->servicios;
+
+        foreach ($servicios as $key => $servicio) {
+            $query->orWhere('servicio_id', '=', $servicio->id);
+        }
+
+        return $query;
     }
 }
