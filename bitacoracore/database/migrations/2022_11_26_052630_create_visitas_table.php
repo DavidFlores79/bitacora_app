@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('motivo_visita')->nullable();
             $table->longText('imagen_identificacion')->nullable();
             $table->bigInteger('tipo_vehiculo_id')->unsigned();
-            $table->string('placas');
+            $table->longText('placas')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->dateTime('fecha_entrada')->nullable();
             $table->dateTime('fecha_salida')->nullable();

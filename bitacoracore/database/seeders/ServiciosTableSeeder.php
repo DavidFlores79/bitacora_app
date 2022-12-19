@@ -16,10 +16,12 @@ class ServiciosTableSeeder extends Seeder
     public function run()
     {
         $servicios = [
-            'Servicio Ejemplo',
-            'Privada Residencial Marsella',
-            'Sian Kaan 2',
-            'Santa Fe Caucel',
+            'Privada Ejemplo',
+            'Privada Marsella',
+            'Privada Conkal',
+            'Privada Mulsay',
+            'Privada Sian Kaan 2',
+            'Privada SantaFe Caucel',
         ];
         foreach ($servicios as $servicio) {
             DB::table('servicios')->insert([
