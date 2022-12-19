@@ -21,21 +21,42 @@ class Perfil extends Model
 
     public function scopeEmpleados($query)
     {
-        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->first();
-        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->first();
-        $perfilCliente = Perfil::where("codigo", "client")->select("id")->first();
-        return $query->where('id', '<>', $perfilAdmin->id)->where('id', '<>', $perfilSuperUser->id)->where('id', '<>', $perfilCliente->id);
+        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->get();
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->get();
+        $perfilClient = Perfil::where("codigo", "client")->select("id")->get();
+
+        foreach ($perfilSuperUser as $key => $value) {
+            $query->where('id', '<>', $value->id);
+        }
+        foreach ($perfilClient as $key => $value) {
+            $query->where('id', '<>', $value->id);
+        }
+        foreach ($perfilAdmin as $key => $value) {
+            $query->where('id', '<>', $value->id);
+        }
+        
+        return $query;
     }
 
     public function scopeAdministradores($query)
     {
-        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->first();
-        return $query->where('id', '=', $perfilAdmin->id);
+        $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->get();
+
+        foreach ($perfilAdmin as $key => $value) {
+            $query->orWhere('id', 'like', $value->id);
+        }
+
+        return $query;
     }
 
     public function scopeClientes($query)
     {
-        $perfilClient = Perfil::where("codigo", "client")->select("id")->first();
-        return $query->where('id', '=', $perfilClient->id);
+        $perfilClient = Perfil::where("codigo", "client")->select("id")->get();
+
+        foreach ($perfilClient as $key => $value) {
+            $query->orWhere('id', 'like', $value->id);
+        }
+
+        return $query;
     }
 }

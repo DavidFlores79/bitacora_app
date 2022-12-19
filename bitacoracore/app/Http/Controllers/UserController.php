@@ -7,6 +7,7 @@ use App\Models\Servicio;
 use App\Models\User;
 use App\Traits\BitacoraTrait;
 use App\Traits\MenuTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,7 +35,7 @@ class UserController extends Controller
 
     function getEmpleados()
     {
-        $datos = User::empleados()->get();
+        $datos = $this->miServicio(User::empleados()->get());
         $perfiles = Perfil::empleados()->get();
         $servicios = Servicio::all();
 
@@ -45,6 +46,7 @@ class UserController extends Controller
                 'datos' => $datos->load('miPerfil', 'servicios'),
                 'perfiles' => $perfiles,
                 'servicios' => $servicios,
+                'mis_servicios' => auth()->user()->servicios,
             ];
         } else {
             $data = [
@@ -58,7 +60,7 @@ class UserController extends Controller
 
     function getAdmin()
     {
-        $datos = User::administradores()->get();
+        $datos = $this->miServicio(User::administradores()->get());
         $perfiles = Perfil::administradores()->get();
         $servicios = Servicio::all();
 
@@ -69,6 +71,7 @@ class UserController extends Controller
                 'datos' => $datos->load('miPerfil', 'servicios'),
                 'perfiles' => $perfiles,
                 'servicios' => $servicios,
+                'mis_servicios' => auth()->user()->servicios,
             ];
         } else {
             $data = [
@@ -163,13 +166,22 @@ class UserController extends Controller
             $dato->save();
 
             $servicios_asig = ($request->servicios_asig == null) ? [] : $request->servicios_asig;
-            if (count($servicios_asig) > 0) {
+            // if (count($servicios_asig) > 0) {
+            if (auth()->user()->perfil_id == 1) {
                 for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
                     $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
                 }
-                $dato->servicios()->detach();
-                $dato->servicios()->sync($syncData);
+            } else {
+                if (count($servicios_asig) > 0) {
+                    for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
+                        $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
+                    }   
+                } else {
+                    $syncData[] = ['servicio_id' => auth()->user()->servicios[0]['id']];
+                }
             }
+            $dato->servicios()->detach();
+            $dato->servicios()->sync($syncData);
 
             if (is_object($dato)) {
                 $data = [
@@ -208,8 +220,8 @@ class UserController extends Controller
             'apellido' => 'nullable|string|max:255',
             'telefono' => 'nullable|numeric|digits_between:10,10',
             'perfil_id' => 'required|numeric|exists:perfils,id',
-            'servicios_asig' => 'nullable|array',
-            'servicios_asig.*.id' => 'nullable|exists:servicios,id',
+            'servicios_asig_edit' => 'nullable|array',
+            'servicios_asig_edit.*.id' => 'nullable|exists:servicios,id',
         ];
         $this->validate($request, $rules);
 
@@ -228,14 +240,23 @@ class UserController extends Controller
                 if ($request->input('password')) $dato->password = Hash::make($request->input('password'));
                 $dato->save();
 
-                $servicios_asig_edit = ($request->servicios_asig_edit == null) ? [] : $request->servicios_asig_edit;
-                if (count($servicios_asig_edit) > 0) {
-                    for ($i = 0; $i <= count($servicios_asig_edit) - 1; $i++) {
-                        $syncData[] = ['servicio_id' => $servicios_asig_edit[$i]['id']];
+                $servicios_asig = ($request->servicios_asig_edit == null) ? [] : $request->servicios_asig_edit;
+                // if (count($servicios_asig) > 0) {
+                if (auth()->user()->perfil_id == 1) {
+                    for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
+                        $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
                     }
-                    $dato->servicios()->detach();
-                    $dato->servicios()->sync($syncData);
+                } else {
+                    if (count($servicios_asig) > 0) {
+                        for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
+                            $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
+                        }   
+                    } else {
+                        $syncData[] = ['servicio_id' => auth()->user()->servicios[0]['id']];
+                    }
                 }
+                $dato->servicios()->detach();
+                $dato->servicios()->sync($syncData);
 
                 $data = [
                     'code' => 200,
@@ -277,5 +298,26 @@ class UserController extends Controller
             ];
         }
         return response()->json($data, $data['code']);
+    }
+
+    public function miServicio($usuarios)
+    {
+
+        $datos = Collection::make(new User);
+
+        if (auth()->user()->perfil_id != 1) {
+            foreach ($usuarios as $key => $cadaUsuario) {
+                foreach ($cadaUsuario->servicios as $key => $servicio) {
+                    for ($i = 0; $i < count(auth()->user()->servicios); $i++) {
+                        if (auth()->user()->servicios[$i]['id'] == $servicio->id) {
+                            $datos->add($cadaUsuario);
+                        }
+                    }
+                }
+            }
+        } else {
+            $datos = $usuarios;
+        }
+        return $datos;
     }
 }

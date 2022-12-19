@@ -12,6 +12,7 @@ app.controller(
     $scope.datos = [];
     $scope.perfiles = [];
     $scope.servicios = [];
+    $scope.misServicios = [];
     $scope.createForm = {};
 
     $http({
@@ -27,6 +28,7 @@ app.controller(
         $scope.datos = response.data.datos;
         $scope.perfiles = response.data.perfiles;
         $scope.servicios = response.data.servicios;
+        $scope.misServicios = response.data.mis_servicios;
         console.log($scope.datos);
       },
       function errorCallback(response) {
@@ -257,3 +259,13 @@ app.controller(
     };
   }
 );
+
+app.filter('listarServicios', function() {
+  return function(servicios) {
+      let lista = "";
+      servicios.forEach(servicio => {
+          lista += servicio.nombre + ", "
+      });
+      return lista;
+  }
+});

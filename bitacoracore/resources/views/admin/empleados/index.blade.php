@@ -15,7 +15,6 @@
       </button>
     </div>
     <div class="card-body">
-
       <div class="table-responsive">
         <table class="table table-striped table-hover text-center">
           <thead class="">
@@ -24,10 +23,7 @@
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.apellido'; sortReverse = !sortReverse"> Apellidos </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.perfil_id'; sortReverse = !sortReverse"> Perfil </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nickname'; sortReverse = !sortReverse"> Nickname </a></th>
-              @if(auth()->user()->perfil_id == 1)
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.servicio.nombre'; sortReverse = !sortReverse"> Servicio </a></th>
-              @endif
-              <!-- <th><a class="text-body" href="#" ng-click="sortType = 'dato.email'; sortReverse = !sortReverse"> Email </a></th> -->
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.estatus'; sortReverse = !sortReverse"> Estado </a></th>
               <th>Opc.</th>
             </tr>
@@ -38,10 +34,7 @@
               <td style="min-width: 150px;">@{{ dato.apellido }}</td>
               <td style="min-width: 150px;">@{{ dato.mi_perfil.nombre }}</td>
               <td style="min-width: 150px;">@{{ dato.nickname }}</td>
-              @if(auth()->user()->perfil_id == 1)
-              <td style="min-width: 150px;">@{{ dato['servicios'][0].nombre }}</td>
-              @endif
-              <!-- <td style="min-width: 150px;">@{{ dato.email }}</td> -->
+              <td style="min-width: 150px;">@{{ dato.servicios | listarServicios }}</td>
               <td ng-if="dato.bloqueado == 0"><span class="badge badge-pill badge-success">Activo</span></td>
               <td ng-if="dato.bloqueado == 1"><span class="badge badge-pill badge-danger">Inactivo</span></td>
               <td class="d-flex justify-content-center">

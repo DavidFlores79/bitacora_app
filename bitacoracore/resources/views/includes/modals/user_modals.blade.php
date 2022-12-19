@@ -22,7 +22,7 @@
 
           </div>
           <div class="row">
-            @if(auth()->user()->perfil_id == 1)
+            @if(auth()->user()->miPerfil->codigo == 'superuser' || auth()->user()->miPerfil->codigo == 'client')
             <div class="col-md-12 py-2">
               <label for="servicios_asig" class="form-label">Servicio(s)</label>
               <select name="servicios_asig" 
@@ -32,10 +32,14 @@
                       data-live-search="true" 
                       title="Selecciona..." 
                       data-actions-box="true" 
-                      data-selected-text-format="count > 0" 
+                      data-selected-text-format="count > 0"
                       data-size="6"
                       required>
-                <option value="@{{servicio.id}}" ng-repeat="servicio in servicios">@{{servicio.nombre}}</option>
+                @if(auth()->user()->miPerfil->codigo == 'superuser')
+                  <option value="@{{servicio.id}}" ng-repeat="servicio in servicios">@{{servicio.nombre}}</option>
+                @else if(auth()->user()->miPerfil->codigo == 'client')
+                  <option value="@{{servicio.id}}" ng-repeat="servicio in misServicios">@{{servicio.nombre}}</option>
+                @endif
               </select>
             </div>
             @endif
@@ -100,7 +104,7 @@
             </div>
           </div>
           <div class="row">
-            @if(auth()->user()->perfil_id == 1)
+            @if(auth()->user()->miPerfil->codigo == 'superuser' || auth()->user()->miPerfil->codigo == 'client')
             <div class="col-md-12 py-2">
               <label for="servicios_asig_edit" class="form-label">Servicio(s)</label>
               <select name="servicios_asig_edit" 
@@ -113,7 +117,11 @@
                       data-selected-text-format="count > 0" 
                       data-size="6"
                       required>
-                <option value="@{{servicio.id}}" ng-repeat="servicio in servicios">@{{servicio.nombre}}</option>
+                @if(auth()->user()->miPerfil->codigo == 'superuser')
+                  <option value="@{{servicio.id}}" ng-repeat="servicio in servicios">@{{servicio.nombre}}</option>
+                @else if(auth()->user()->miPerfil->codigo == 'client')
+                  <option value="@{{servicio.id}}" ng-repeat="servicio in misServicios">@{{servicio.nombre}}</option>
+                @endif
               </select>
             </div>
             @endif

@@ -251,6 +251,14 @@ app.controller( 'clientes', function ($scope, $http, $httpParamSerializerJQLike)
       );
       
   }
+});
 
-
-})
+app.filter('listarServicios', function() {
+    return function(servicios) {
+        let lista = "";
+        servicios.forEach(servicio => {
+            lista += servicio.nombre + ", "
+        });
+        return lista;
+    }
+  });

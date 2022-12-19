@@ -24,7 +24,9 @@
                         <h6 class="text-overflow">¡Bienvenido!</h6>
                         <div class="mb-1 text-sm">{{ auth()->user()->miPerfil->nombre }}</div>
                         @if(auth()->user()->perfil_id != 1)
-                            <div class="mb-1 text-sm">{{ auth()->user()->servicios[0]['nombre'] }}</div>
+                            @for ($i = 0; $i < count(auth()->user()->servicios); $i++)
+                                <div class="mb-1 text-sm">{{ auth()->user()->servicios[$i]['nombre'] }}</div>
+                            @endfor 
                         @endif
                         <div class="mb-0 text-sm text-dark font-weight-bold">{{ auth()->user()->name }}</div>
                         <!-- <div class="mb-0 text-sm text-dark font-weight-bold"></div> -->

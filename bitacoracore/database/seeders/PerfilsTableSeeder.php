@@ -15,19 +15,6 @@ class PerfilsTableSeeder extends Seeder
      */
     public function run()
     {
-        // $perfiles = [
-        //     'SuperUsuario',
-        //     'Administrador',
-        //     'Seguridad',
-        //     'Cliente',
-        //     'Supervisor',
-        // ];
-        // foreach ($perfiles as $perfil) {
-        //     DB::table('perfils')->insert([
-        //         "nombre" => $perfil,
-        //     ]);
-        // }
-
         DB::table('perfils')->insert([
             "nombre" => "SuperUsuario",
             "codigo" => "superuser",

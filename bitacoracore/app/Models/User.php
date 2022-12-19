@@ -95,7 +95,7 @@ class User extends Authenticatable implements JWTSubject
         $perfilAdmin = Perfil::where("codigo", "admin")->select("id")->get();
 
         foreach ($perfilAdmin as $key => $value) {
-            $query->where('perfil_id', 'like', $value->id);
+            $query->orWhere('perfil_id', 'like', $value->id);
         }
 
         return $query;
@@ -106,16 +106,10 @@ class User extends Authenticatable implements JWTSubject
         $perfilClient = Perfil::where("codigo", "client")->select("id")->get();
 
         foreach ($perfilClient as $key => $value) {
-            $query->where('perfil_id', 'like', $value->id);
+            $query->orWhere('perfil_id', 'like', $value->id);
         }
 
         return $query;
-    }
-
-    public function scopeServicio($query)
-    {
-        $perfilSuperUser = Perfil::where("codigo", "superuser")->select("id")->first();
-        return (auth()->user()->perfil_id != $perfilSuperUser->id) ?  $query : $query;
     }
 
     // protected static function boot()
