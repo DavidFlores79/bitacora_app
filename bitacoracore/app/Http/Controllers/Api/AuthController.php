@@ -77,7 +77,7 @@ class AuthController extends Controller
                 'jwt' => $jwt,
                 'exp' => $payload['exp'],
             ];
-            $this->sendNotification("Un usuario ha iniciado sesion desde la App Movil 😃");
+            $this->sendNotification($user->nombre." ".$user->apellido." ha iniciado sesion desde la App Movil 😃");
         }
         return response()->json($data, $data['code']);
     }

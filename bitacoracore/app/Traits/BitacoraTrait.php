@@ -14,7 +14,7 @@ trait BitacoraTrait
         $bitacora = new Bitacora();
         $bitacora->documento = $documento;
         $bitacora->direccion_ip = $this->getIpAddress();
-        $bitacora->nickname_nombre = Auth::user()->name." ".Auth::user()->apellido;
+        $bitacora->nickname_nombre = Auth::user()->nombre." ".Auth::user()->apellido;
         $bitacora->descripcion = $descripcion;
         $bitacora->trace = "El usuario: ".$bitacora->nickname_nombre." ".$trace." Fecha: ".$dt->format('Y-m-d H:i:s');
         $bitacora->exitoso = $exitoso;
@@ -28,7 +28,7 @@ trait BitacoraTrait
         $bitacora = new Bitacora();
         $bitacora->documento = $documento;
         $bitacora->direccion_ip = $this->getIpAddress();
-        $bitacora->nickname_nombre = $user->nickname." - ".$user->name;
+        $bitacora->nickname_nombre = $user->nickname." - ".$user->nombre." ".$user->apellido;
         $bitacora->descripcion = $descripcion;
         $bitacora->trace = "El usuario: ".$bitacora->nickname_nombre." ".$trace." Fecha: ".$dt->format('Y-m-d H:i:s');
         $bitacora->exitoso = $exitoso;
