@@ -48,6 +48,7 @@ class SyncController extends Controller
             'visitas_actualizadas' => $visitasActualizadas,
             'ids_actualizados' => $idsActualizados,
         ];
+        $this->sendNotification(auth()->user()->nombre." ".auth()->user()->apellido." sincronizó ".$visitasActualizadas." registros desde la App Movil 😃📱");
     
         return response()->json($data, $data['code']);
     }

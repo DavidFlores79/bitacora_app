@@ -22,42 +22,39 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('get-profile-code', [App\Http\Controllers\HomeController::class, 'getProfileCode']);
+        Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('get-profile-code', [App\Http\Controllers\HomeController::class, 'getProfileCode']);
 
-    //rutas get para modulos
-    Route::get('visitas', [App\Http\Controllers\VisitaController::class, 'index'])->name('visitas');
-    Route::get('registro-visitantes', [App\Http\Controllers\VisitaController::class, 'registroVisitantes'])->name('registro-visitantes');
-    Route::get('bitacora', [App\Http\Controllers\BitacoraController::class, 'index'])->name('bitacora');
-    Route::get('admin-user', [App\Http\Controllers\AdminUserController::class, 'index'])->name('adminusers');
+        //rutas get para modulos
+        Route::get('visitas', [App\Http\Controllers\VisitaController::class, 'index'])->name('visitas');
+        Route::get('registro-visitantes', [App\Http\Controllers\VisitaController::class, 'registroVisitantes'])->name('registro-visitantes');
+        Route::get('bitacora', [App\Http\Controllers\BitacoraController::class, 'index'])->name('bitacora');
+        Route::get('admin-user', [App\Http\Controllers\AdminUserController::class, 'index'])->name('adminusers');
 
-    Route::get('profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-    Route::put('profile/password', [App\Http\Controllers\ProfileController::class, 'password'])->name('profile.password');
-    Route::get('roles', [App\Http\Controllers\ProyectosController::class, 'index'])->name('roles');
+        Route::get('profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+        Route::put('profile/password', [App\Http\Controllers\ProfileController::class, 'password'])->name('profile.password');
+        Route::get('roles', [App\Http\Controllers\ProyectosController::class, 'index'])->name('roles');
 
-    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+        Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
 
-    // Route::group(["middleware" => 'permiso'], function () {
-    //     Route::get('requerimientos/ver-ticket/', [App\Http\Controllers\RequerimientosController::class, 'displayTicket']);
-    //     Route::get('gestion-tickets', [App\Http\Controllers\GestionTicketsController::class, 'index'])->name('gestiontickets');
-    //     Route::get('requerimientos', [App\Http\Controllers\RequerimientosController::class, 'index'])->name('requerimientos');
-    // });
+        // Route::group(["middleware" => 'permiso'], function () {
+        // });
 
-    //Administracion de usuarios
-    Route::get('admin-user/getUsers', [App\Http\Controllers\AdminUserController::class, 'getUsers']);
-    Route::post('admin-user', [App\Http\Controllers\AdminUserController::class, 'store']);
-    Route::get("admin-user/{id}/edit", [App\Http\Controllers\AdminUserController::class, "edit"]);
-    Route::put('admin-user', [App\Http\Controllers\AdminUserController::class, 'update']);
-    Route::delete("admin-user/{id}", [App\Http\Controllers\AdminUserController::class, "destroy"]);
-    Route::post("admin-user/reset-password", [App\Http\Controllers\AdminUserController::class, "resetPassword"]);
+        //Administracion de usuarios
+        Route::get('admin-user/getUsers', [App\Http\Controllers\AdminUserController::class, 'getUsers']);
+        Route::post('admin-user', [App\Http\Controllers\AdminUserController::class, 'store']);
+        Route::get("admin-user/{id}/edit", [App\Http\Controllers\AdminUserController::class, "edit"]);
+        Route::put('admin-user', [App\Http\Controllers\AdminUserController::class, 'update']);
+        Route::delete("admin-user/{id}", [App\Http\Controllers\AdminUserController::class, "destroy"]);
+        Route::post("admin-user/reset-password", [App\Http\Controllers\AdminUserController::class, "resetPassword"]);
 
-    //bitacora
-    Route::get('bitacora/consulta-bitacora', [App\Http\Controllers\BitacoraController::class, 'consultaBitacora']);
-    Route::get("bitacora/actualizar", [App\Http\Controllers\BitacoraController::class, "actualizarBitacora"]);
+        //bitacora
+        Route::get('bitacora/consulta-bitacora', [App\Http\Controllers\BitacoraController::class, 'consultaBitacora']);
+        Route::get("bitacora/actualizar", [App\Http\Controllers\BitacoraController::class, "actualizarBitacora"]);
 
-    //Visitas
-    Route::get('visitas/getVisitas', [App\Http\Controllers\VisitaController::class, 'getVisitas']);
+        //Visitas
+        Route::get('visitas/getVisitas', [App\Http\Controllers\VisitaController::class, 'getVisitas']);
 
         //tipo campos
         Route::get('tipo-vehiculos', [App\Http\Controllers\TipoVehiculoController::class, 'index'])->name('tipo-vehiculos');

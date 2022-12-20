@@ -166,7 +166,7 @@ class UserController extends Controller
             $dato->save();
 
             $servicios_asig = ($request->servicios_asig == null) ? [] : $request->servicios_asig;
-            // if (count($servicios_asig) > 0) {
+            
             if (auth()->user()->perfil_id == 1) {
                 for ($i = 0; $i <= count($servicios_asig) - 1; $i++) {
                     $syncData[] = ['servicio_id' => $servicios_asig[$i]['id']];
@@ -191,6 +191,7 @@ class UserController extends Controller
                     'dato' => $dato->load('miPerfil', 'servicios'),
                 ];
             }
+            $this->guardarEvento("Crear usuario", "creó al usuario ".$dato->nickname." ".$dato->nombre);
             return response()->json($data, $data['code']);
         } catch (\Throwable $th) {
             $data = [
@@ -264,7 +265,7 @@ class UserController extends Controller
                     'message' => 'Editado satisfactoriamente.',
                     'dato' => $dato->load('miPerfil', 'servicios'),
                 ];
-
+                $this->guardarEvento("Editar usuario", "editó al usuario ".$dato->nickname." ".$dato->nombre);
                 return response()->json($data, $data['code']);
             }
         } catch (\Throwable $th) {
@@ -290,6 +291,7 @@ class UserController extends Controller
                 'message' => 'Eliminado satisfactoriament.e',
                 'dato' => $dato,
             ];
+            $this->guardarEvento("Eliminar usuario", "eliminó al usuario ".$dato->nickname." ".$dato->nombre);
         } else {
             $data = [
                 'code' => 404,

@@ -54,7 +54,7 @@ trait OSNotificationTrait
                     "status" => "success",
                     "message" => "Se ha enviado a: " . $response->json('recipients') . " destinatarios.",
                 ];
-                $this->guardarEvento("Notificaciones OneSignal", "ha iniciado sesión desde la App Móvil (API-Rest).");
+                $this->guardarEvento("Notificaciones OneSignal", "ha notificado en la Apliación Web que ha iniciado sesión desde la App Móvil (API-Rest).");
             } else {
                 $data = [
                     "code" => 400,
