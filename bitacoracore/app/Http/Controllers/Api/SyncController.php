@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Sync;
 use App\Models\Visita;
+use App\Traits\OSNotificationTrait;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 
 class SyncController extends Controller
 {
+    use OSNotificationTrait;
+    
     public function syncVisitas(Request $request) {
 
         $visitas = $request->input('visitas');
@@ -48,7 +51,7 @@ class SyncController extends Controller
             'visitas_actualizadas' => $visitasActualizadas,
             'ids_actualizados' => $idsActualizados,
         ];
-        $this->sendNotification(auth()->user()->nombre." ".auth()->user()->apellido." sincronizó ".$visitasActualizadas." registros desde la App Movil 😃📱");
+        $this->sendNotification(auth()->user()->nombre." sincronizó ".$visitasActualizadas." registros desde la App Movil 😃📱");
     
         return response()->json($data, $data['code']);
     }
