@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class SyncController extends Controller
 {
     use OSNotificationTrait;
-    
+
     public function syncVisitas(Request $request) {
 
         $visitas = $request->input('visitas');
@@ -39,9 +39,10 @@ class SyncController extends Controller
                 $registro->save();
                 $visitasActualizadas++;
                 array_push($idsActualizados, $registro->app_id);
-            }
+            // }
 
-        // }
+        }
+        $this->sendNotification(auth()->user()->nombre." sincronizó ".$visitasActualizadas." registros desde la App Movil 😃📱");
 
         $data = [
             'code' => 200,
@@ -51,7 +52,7 @@ class SyncController extends Controller
             'visitas_actualizadas' => $visitasActualizadas,
             'ids_actualizados' => $idsActualizados,
         ];
-        $this->sendNotification(auth()->user()->nombre." sincronizó ".$visitasActualizadas." registros desde la App Movil 😃📱");
+        
     
         return response()->json($data, $data['code']);
     }

@@ -66,6 +66,7 @@ class AuthController extends Controller
             ];
         } else {
             $this->guardarEventoApi($user, "Iniciar Sesion", "inició sesión desde Api-Rest"); //bitacora
+            $this->sendNotification($user->nombre." ".$user->apellido." ha iniciado sesion desde la App Movil 😃📱");
 
             $payload = JWTAuth::getJWTProvider()->decode($jwt);
 
@@ -77,7 +78,7 @@ class AuthController extends Controller
                 'jwt' => $jwt,
                 'exp' => $payload['exp'],
             ];
-            $this->sendNotification($user->nombre." ".$user->apellido." ha iniciado sesion desde la App Movil 😃📱");
+
         }
         return response()->json($data, $data['code']);
     }
