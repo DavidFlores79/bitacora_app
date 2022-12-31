@@ -19,7 +19,7 @@
         <h6 class="mt-1">@yield('page-title')</h6>
       </div>
       <div class="col-md-4 col-sm-8">
-        <select ng-model="searchQuery.servicio_id" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
+        <select ng-model="servicios" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
           <option value="">Filtra por servicio...</option>
           <option value="@{{ servicio.id }}" ng-repeat="servicio in servicios"> @{{ servicio.nombre }}</option>
         </select>
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
+            <tr dir-paginate="dato in datosFiltrados = (datos|filter:servicios.servicio_id|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
               <td>@{{ dato.motivo_visita }}</td>
