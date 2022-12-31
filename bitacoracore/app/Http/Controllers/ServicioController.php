@@ -66,6 +66,7 @@ class ServicioController extends Controller
                     'dato' => $dato,
                 ];
             }
+            $this->guardarEvento("Servicio", "creó el Servicio ".$dato->nombre);
             return response()->json($data, $data['code']);
         } catch (\Throwable $th) {
             $data = [
@@ -111,7 +112,7 @@ class ServicioController extends Controller
                     'message' => 'Editado satisfactoriamente.',
                     'dato' => $dato,
                 ];
-
+                $this->guardarEvento("Servicio", "editó el Servicio ".$dato->nombre);
                 return response()->json($data, $data['code']);
             }
         } catch (\Throwable $th) {
@@ -138,6 +139,7 @@ class ServicioController extends Controller
                 'message' => 'Eliminado satisfactoriament.e',
                 'dato' => $dato,
             ];
+            $this->guardarEvento("Servicio", "eliminó el Servicio ".$dato->nombre);
         } else {
             $data = [
                 'code' => 404,

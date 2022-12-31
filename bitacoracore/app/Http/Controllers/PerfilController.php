@@ -91,6 +91,7 @@ class PerfilController extends Controller
                     'dato' => $dato,
                 ];
             }
+            $this->guardarEvento("Perfil", "creó el perfil ".$dato->nombre);
             return response()->json($data, $data['code']);
         } catch (\Throwable $th) {
             $data = [
@@ -136,7 +137,7 @@ class PerfilController extends Controller
                     'message' => 'Editado satisfactoriamente.',
                     'dato' => $dato,
                 ];
-
+                $this->guardarEvento("Perfil", "editó el perfil ".$dato->nombre);
                 return response()->json($data, $data['code']);
             }
         } catch (\Throwable $th) {
@@ -163,6 +164,7 @@ class PerfilController extends Controller
                 'message' => 'Eliminado satisfactoriament.e',
                 'dato' => $dato,
             ];
+            $this->guardarEvento("Perfil", "eliminó el perfil ".$dato->nombre);
         } else {
             $data = [
                 'code' => 404,

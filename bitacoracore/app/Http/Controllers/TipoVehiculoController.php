@@ -67,6 +67,7 @@ class TipoVehiculoController extends Controller
                     'dato' => $dato,
                 ];
             }
+            $this->guardarEvento("Tipo de Vehiculo", "creó el tipo de veniculo ".$dato->nombre);
             return response()->json($data, $data['code']);
         } catch (\Throwable $th) {
             $data = [
@@ -112,7 +113,7 @@ class TipoVehiculoController extends Controller
                     'message' => 'Editado satisfactoriamente.',
                     'dato' => $dato,
                 ];
-
+                $this->guardarEvento("Tipo de Vehiculo", "editó el tipo de veniculo ".$dato->nombre);
                 return response()->json($data, $data['code']);
             }
         } catch (\Throwable $th) {
@@ -139,6 +140,7 @@ class TipoVehiculoController extends Controller
                 'message' => 'Eliminado satisfactoriament.e',
                 'dato' => $dato,
             ];
+            $this->guardarEvento("Tipo de Vehiculo", "eliminó el tipo de veniculo ".$dato->nombre);
         } else {
             $data = [
                 'code' => 404,

@@ -37,6 +37,7 @@ class VisitaController extends Controller
             'code' => 200,
             'status' => 'success',
             'datos' => $visitas->load('user', 'tipo_vehiculo', 'servicio'),
+            'servicios' => auth()->user()->servicios,
         ];
         return response()->json($data, $data['code']);
 

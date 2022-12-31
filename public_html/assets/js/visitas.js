@@ -3,6 +3,8 @@ var app = angular.module("visitas", ["angularUtils.directives.dirPagination"]);
 app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.currentPage = 1;
   $scope.pageSize = 5;
+  $scope.servicios = [];
+  $scope.servicios_filtrados = [];
   $scope.user = {
     name: "",
     apellido: "",
@@ -24,6 +26,7 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     function successCallback(response) {
       console.log("salio bien: ", response);
       $scope.datos = response.data.datos;
+      $scope.servicios = response.data.servicios;
     },
     function errorCallback(response) {
       console.log("hubo error: ", response);
