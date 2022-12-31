@@ -18,7 +18,7 @@
           class="fas fa-plus mr-1"></i>Agregar Visitante
       </button> -->
       <div class="col-md-4 col-sm-8">
-        <select ng-model="servicios" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
+        <select ng-model="searchQuery.servicio_id" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
           <option value="">Filtra por servicio...</option>
           <option value="@{{ servicio.id }}" ng-repeat="servicio in servicios"> @{{ servicio.nombre }}</option>
         </select>
@@ -48,7 +48,7 @@
           </thead>
           <tbody>
             <!-- <tr class="fila-visita" ng-click="show(dato)" -->
-            <tr dir-paginate="dato in datosFiltrados = (datos|filter:servicios.servicio_id|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
+            <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
               <td><img class="imagen_id" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" /></td>
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
