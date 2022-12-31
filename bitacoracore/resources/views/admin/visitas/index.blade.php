@@ -10,15 +10,16 @@
 
   <div class="card shadow">
     <div class="card-header bg-white d-flex justify-content-between">
-      <div class="col-md-8 col-sm-4">
-        <h6 class="mt-1">@yield('page-title')</h6>
-      </div>
-      <!-- <button data-toggle="tooltip" data-placement="top" title="Agregar ticket"
+      <!-- <h6 class="mt-1">@yield('page-title')</h6>
+      <button data-toggle="tooltip" data-placement="top" title="Agregar ticket"
         class="btn btn-success d-flex justify-content-center align-items-center" ng-click="create()"><i
           class="fas fa-plus mr-1"></i>Agregar Visitante
       </button> -->
+      <div class="col-md-8 col-sm-4">
+        <h6 class="mt-1">@yield('page-title')</h6>
+      </div>
       <div class="col-md-4 col-sm-8">
-        <select ng-model="searchQuery.servicio_id" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
+        <select ng-model="servicios" ng-disabled="servicios.length <= 0" name="servicio_selected" id="servicio_selected" class="form-control" required autofocus>
           <option value="">Filtra por servicio...</option>
           <option value="@{{ servicio.id }}" ng-repeat="servicio in servicios"> @{{ servicio.nombre }}</option>
         </select>
