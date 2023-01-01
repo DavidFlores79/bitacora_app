@@ -95,6 +95,8 @@ class VisitaController extends Controller
                     'dato' => $dato->load('servicio', 'tipo_vehiculo', 'user'),
                 ];
             }
+            $this->guardarEvento("Registrar Visita", "registró visita"); //bitacora
+
             return response()->json($data, $data['code']);
         } catch (\Throwable $th) {
             $data = [
@@ -102,6 +104,7 @@ class VisitaController extends Controller
                 'status' => 'error',
                 'message' => 'Se ha producido un error al guardar.' . $th,
             ];
+            $this->guardarEvento("Registrar Visita", "intentó registrar visita", "S/D", false); //bitacora
             return response()->json($data, $data['code']);
         }
     }
@@ -138,6 +141,7 @@ class VisitaController extends Controller
                     'message' => 'Salida Registrada satisfactoriamente.',
                     'dato' => $dato,
                 ];
+                $this->guardarEvento("Registrar Salida", "registró salida de vehículo"); //bitacora
 
             } else {
                 $data = [
@@ -152,6 +156,7 @@ class VisitaController extends Controller
                 'status' => 'error',
                 'message' => 'Dato no encontrado.',
             ];
+            $this->guardarEvento("Registrar Salida", "intentó registrar salida de vehículo", "S/D", false); //bitacora
         }
         
         return response()->json($data, $data['code']);
@@ -169,6 +174,7 @@ class VisitaController extends Controller
                 'message' => 'Eliminado satisfactoriamente.',
                 'dato' => $dato,
             ];
+            $this->guardarEvento("Eliminar Registro Vista", "eliminó el registro ".$dato->id." de un vehículo"); //bitacora
         } else {
             $data = [
                 'code' => 404,
