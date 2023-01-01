@@ -63,8 +63,8 @@
           <thead class="">
             <tr class="">
               </th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'dato.imagen_identificacion'; sortReverse = !sortReverse"> INE </a></th>
-              <th><a class="text-body" href="#" ng-click="sortType = 'dato.placas'; sortReverse = !sortReverse"> Placas </a></th>
+              <!-- <th><a class="text-body" href="#" ng-click="sortType = 'dato.imagen_identificacion'; sortReverse = !sortReverse"> INE </a></th>
+              <th><a class="text-body" href="#" ng-click="sortType = 'dato.placas'; sortReverse = !sortReverse"> Placas </a></th> -->
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_datonte'; sortReverse = !sortReverse"> Visitante </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.nombre_quien_dato'; sortReverse = !sortReverse"> A Quien Visita </a></th>
               <th><a class="text-body" href="#" ng-click="sortType = 'dato.motivo_dato'; sortReverse = !sortReverse"> Motivo </a>
@@ -80,14 +80,14 @@
           </thead>
           <tbody>
             <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
-              <td>
+              <!-- <td>
                 <img class="imagen_id" ng-if="!dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
                 <img class="imagen_id" ng-if="dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.imagen_identificacion}}" />
               </td>
               <td>
                 <img class="imagen_id" ng-if="!dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.placas}}" />
                 <img class="imagen_id" ng-if="dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.placas}}" />
-              </td>
+              </td> -->
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
               <td style="min-width: 150px;">@{{ dato.motivo_visita }}</td>
