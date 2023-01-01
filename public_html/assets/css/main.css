@@ -86,11 +86,11 @@ footer {
 {
     .navbar-vertical.navbar-expand-md.fixed-left + .main-content
     {
-        margin-left: 250px;
+        margin-left: 220px;
     }
     .navbar-vertical.navbar-expand-md.fixed-right + .main-content
     {
-        margin-right: 250px;
+        margin-right: 220px;
     }
 }
 
@@ -164,7 +164,7 @@ footer {
         overflow-y: auto; 
 
         width: 100%;
-        max-width: 250px;
+        max-width: 220px;
         padding-right: 1.5rem;
         padding-left: 1.5rem;
     }

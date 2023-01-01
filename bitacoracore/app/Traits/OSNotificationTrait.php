@@ -26,7 +26,7 @@ trait OSNotificationTrait
                     "en" => $message,
                     "es" => $message
                 ],
-                "url" => "https://www.itsoft.mx",
+                "url" => "https://mibitacora.enlacetecnologias.mx",
                 "name" => "INTERNAL_CAMPAIGN_NAME"
             ];
         } else {
@@ -54,7 +54,7 @@ trait OSNotificationTrait
                     "status" => "success",
                     "message" => "Se ha enviado a: " . $response->json('recipients') . " destinatarios.",
                 ];
-                $this->guardarEvento("Notificaciones OneSignal", "ha notificado en la Apliación Web que ha iniciado sesión desde la App Móvil (API-Rest).");
+                $this->guardarEvento("Notificaciones OneSignal", "ha notificado en la Aplicación Web que ha iniciado sesión.");
             } else {
                 $data = [
                     "code" => 400,
