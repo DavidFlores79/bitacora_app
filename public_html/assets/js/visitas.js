@@ -285,7 +285,11 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   };
 
   $scope.fixDate = function (date) {
-    if(date) return new Date(date);
+    if(date) {
+      return new Date(date)
+    } else {
+      return null
+    };
   };
 
   $scope.constarSalidas = () => {
