@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Traits\BitacoraTrait;
+use App\Traits\OSNotificationTrait;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -19,7 +23,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, BitacoraTrait, OSNotificationTrait;
 
     /**
      * Where to redirect users after login.
@@ -44,5 +48,28 @@ class LoginController extends Controller
         $fieldName = filter_var($loginData, FILTER_VALIDATE_EMAIL) ? 'email' : 'nickname';
         request()->merge([$fieldName => $loginData]);
         return $fieldName;
+    }
+
+        /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            $this->guardarEvento("Iniciar Sesion", "inició sesión desde Api-Rest"); //bitacora
+            $this->sendNotification(auth()->user()->nombre." ".auth()->user()->apellido." ha iniciado sesion desde Web 😃");
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended($this->redirectPath());
     }
 }
