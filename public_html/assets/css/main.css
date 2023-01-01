@@ -282,6 +282,7 @@ footer {
 }
 .table-responsive td {
     padding: 5px;
+    font-size: smaller;
 }
 .table-responsive .btn {
     padding: 2px 6px;
@@ -340,15 +341,20 @@ footer {
 
 /* Imagen Idenficacion */
 .imagen_id {
-    max-height: 50px;
+    max-height: 40px;
     cursor: pointer;
 }
 
 .detalle-imagen {
-    width: 100%;
+    width: 90%;
     background-size: cover;
-    max-height: 400px;
+    /* max-height: 400px; */
 }
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
+}
+
 /* Imagen Idenficacion */
 
 /* iconos tipos vehiculo */
@@ -363,6 +369,10 @@ footer {
 
 .camion{
     color:rgb(53, 220, 20);
+}
+
+.etiquetas {
+    font-size: smaller;
 }
 
 /* .fila-visita {

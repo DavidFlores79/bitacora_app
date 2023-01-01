@@ -4,7 +4,9 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   $scope.currentPage = 1;
   $scope.pageSize = 5;
   $scope.servicios = [];
-  $scope.servicios_filtrados = [];
+  $scope.misServicios = [];
+  $scope.tipos_vehiculo = [];
+  $scope.imagen_placas = '';
   $scope.user = {
     name: "",
     apellido: "",
@@ -27,15 +29,18 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
       console.log("salio bien: ", response);
       $scope.datos = response.data.datos;
       $scope.servicios = response.data.servicios;
+      $scope.misServicios = response.data.mis_servicios;
+      $scope.tipos_vehiculo = response.data.tipos_vehiculo;
+      $scope.constarSalidas();
     },
     function errorCallback(response) {
       console.log("hubo error: ", response);
       swal("titulo", "mensaje", "error");
     }
   );
-  $scope.create = () => {
-    $("#mdl_add_users").modal("show");
-  };
+  // $scope.create = () => {
+  //   $("#mdl_add_users").modal("show");
+  // };
 
   $scope.show = (dato) => {
     console.log(dato);
@@ -68,7 +73,19 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     );
   };
 
+  $('#agregarModal').on('hidden.bs.modal', function (e) {
+    //resetear los inputs de imagenes
+    $("#imagen_placas").val(null);
+    $("#imagen_identificacion").val(null);
+    $("#imagen_placas_preview img:last-child").remove()
+    $("#imagen_identificacion_preview img:last-child").remove()
+  })
+
   $scope.store = function () {
+
+    $scope.createForm.imagen_placas = $scope.imagen_placas;
+    $scope.createForm.imagen_identificacion = $scope.imagen_identificacion;
+
     $http({
       url: "visitas",
       method: "POST",
@@ -80,7 +97,8 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     }).then(
       function successCallback(response) {
         console.log(response);
-        $scope.datos = [...$scope.datos, response.data.dato];
+        $scope.constarSalidas();
+        $scope.datos = [response.data.dato, ...$scope.datos];
         $("#createForm").trigger("reset");
         $("#agregarModal").modal("hide");
         swal(
@@ -183,8 +201,49 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     );
   };
 
-  $scope.confirmarEliminar = function (dato) {
+  $scope.confirmarSalida = function (dato) {
     console.log(dato);
+    $scope.dato = dato;
+    $("#salidaModal").modal("show");
+  };
+
+  $scope.registrarSalida = function (dato) {
+    console.log(dato);
+    $scope.dato = dato;
+
+    $http({
+      url: `visitas/${dato.id}`,
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then(
+      function successCallback(response) {
+        console.log(response);
+        $scope.constarSalidas();
+        $scope.datos = $scope.datos.map((dato) =>
+          dato.id == response.data.dato.id ? (dato = response.data.dato) : dato
+        );
+        $("#salidaModal").modal("hide");
+        swal(
+          "Mensaje del Sistema",
+          response.data.message,
+          response.data.status
+        );
+      },
+      function errorCallback(response) {
+        console.log(response);
+        swal(
+          "Mensaje del Sistema",
+          response.data.message,
+          response.data.status
+        );
+      }
+    );
+  };
+
+  $scope.confirmarEliminar = function (dato) {
     $scope.dato = dato;
     $("#nombre-dato").html(dato.nombre);
     $("#eliminarModal").modal("show");
@@ -203,6 +262,7 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     }).then(
       function successCallback(response) {
         console.log(response);
+        $scope.constarSalidas();
         $scope.datos = $scope.datos.filter(
           (dato) => dato.id !== $scope.dato.id
         );
@@ -225,7 +285,78 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
   };
 
   $scope.fixDate = function (date) {
-    return new Date(date);
+    if(date) return new Date(date);
+  };
+
+  $scope.constarSalidas = () => {
+    $('#cuantasSalidas').html()
+    setTimeout(() => {
+      let i = 0;
+      $scope.datosFiltrados;
+      $scope.datosFiltrados.map( registro => {
+        if(registro.fecha_salida == '' || registro.fecha_salida == null) {
+          i++;
+        }
+      })
+      $('#cuantasSalidas').html(i)
+    }, 2000);
+  };
+
+  $scope.uploadFilePlacas = function(event){
+    const filesSelected = document.getElementById('imagen_placas').files;
+    if (filesSelected.length > 0) {
+      const fileToLoad = filesSelected[0];
+
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        const srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+        const newImage = document.createElement('img');
+        newImage.style.height = '60px';
+        newImage.src = srcData;
+
+        document.getElementById('imagen_placas_preview').innerHTML = newImage.outerHTML;
+        $scope.imagen_placas = srcData;
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  };
+
+  $scope.uploadFileId = function(event){
+    const filesSelected = document.getElementById('imagen_identificacion').files;
+    if (filesSelected.length > 0) {
+      const fileToLoad = filesSelected[0];
+
+      const fileReader = new FileReader();
+
+      fileReader.onload = function(fileLoadedEvent) {
+        const srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+        const newImage = document.createElement('img');
+        newImage.style.height = '60px';
+        newImage.src = srcData;
+
+        document.getElementById('imagen_identificacion_preview').innerHTML = newImage.outerHTML;
+        $scope.imagen_identificacion = srcData;
+      }
+      fileReader.readAsDataURL(fileToLoad);
+    }
+  };
+  
+});
+
+app.directive('customOnChange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeHandler = scope.$eval(attrs.customOnChange);
+      element.on('change', onChangeHandler);
+      element.on('$destroy', function() {
+        element.off();
+      });
+
+    }
   };
 });
 

@@ -1,9 +1,9 @@
-<!-- Modal Crear  -->
+<!-- Modal Registrar Entrada  -->
 <div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="agregarModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="agregarModalLabel">Crear @yield('page-title')</h5>
+        <h5 class="modal-title" id="agregarModalLabel">Ingresar @yield('page-title')</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,45 +11,60 @@
       <div class="modal-body">
         <form id="createForm" ng-submit="store()" class="was-validated">
           <div class="row">
-            <div class="col-md-6 py-2">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control required" id="nombre" ng-model="createForm.nombre" maxlength="255" required>
+            <div class="col-md-6">
+              <label for="imagen_placas" class="form-label">Placas</label>
+              <!-- <input class="form-control" type="file" id="imagen_placas" custom-on-change="uploadFilePlacas" accept="image/png, image/jpg, image/jpeg" required> -->
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="imagen_placas" custom-on-change="uploadFilePlacas" accept="image/png, image/jpg, image/jpeg" required>
+                  <label class="custom-file-label" for="xml">Escoger Archivo...</label>
+              </div>
+              <div class="m-3" id="imagen_placas_preview"></div>
             </div>
-            <div class="col-md-6 py-2">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" class="form-control required" id="apellido" ng-model="createForm.apellido" maxlength="255" required>
+            <div class="col-md-6">
+              <label for="imagen_identificacion" class="form-label">INE</label>
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="imagen_identificacion" custom-on-change="uploadFileId" accept="image/png, image/jpg, image/jpeg" required>
+                  <label class="custom-file-label" for="xml">Escoger Archivo...</label>
+              </div>
+              <!-- <input class="form-control" type="file" id="imagen_identificacion" custom-on-change="uploadFileId" accept="image/png, image/jpg, image/jpeg" required> -->
+              <div class="m-3" id="imagen_identificacion_preview"></div>
             </div>
-
-          </div>
-          <div class="row">
-            <div class="col-md-6 py-2">
-              <label for="perfil" class="form-label">Perfil del Usuario</label>
-              <select id="perfil" class="form-control" ng-model="createForm.perfil" required>
-                <option value="" disabled>Selecciona...</option>
-                <option ng-repeat="perfil in perfiles" value="@{{ perfil.id }}">
-                  @{{ perfil.nombre }}</option>
+            <div class="col-md-12 py-2">
+              <label for="servicio_id" class="form-label">Servicio(s)</label>
+              <select ng-model="createForm.servicio_id" ng-disabled="servicios.length <= 0" name="servicio_id" id="servicio_id" class="form-control" ng-change="constarSalidas()" title="Selecciona un servicio" required autofocus>
+                <option value="">Filtra por servicio...</option>
+                <!-- <option value="@{{ servicio.id }}" ng-repeat="servicio in servicios"> @{{ servicio.nombre }}</option> -->
+                @if(auth()->user()->miPerfil->codigo == 'superuser')
+                <option value="@{{servicio.id}}" ng-repeat="servicio in servicios">@{{servicio.nombre}}</option>
+                @else if(auth()->user()->miPerfil->codigo == 'client')
+                <option value="@{{servicio.id}}" ng-repeat="servicio in misServicios">@{{servicio.nombre}}</option>
+                @endif
               </select>
             </div>
             <div class="col-md-6 py-2">
-              <label for="nickname" class="form-label">Nickname</label>
-              <input id="nickname" type="text" class="form-control" ng-model="createForm.nickname" required>
+              <label for="visitante" class="form-label">Visitante</label>
+              <input type="text" class="form-control required" id="visitante" ng-model="createForm.visitante" maxlength="255" required>
             </div>
-            <div class="col-md-12 py-2">
-              <label for="email" class="form-label">Correo</label>
-              <input id="email" type="email" class="form-control" ng-model="createForm.email" required>
+            <div class="col-md-6 py-2">
+              <label for="quien_visita" class="form-label">Quien Visita</label>
+              <input type="text" class="form-control required" id="quien_visita" ng-model="createForm.quien_visita" maxlength="255" required>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 py-2">
-              <label for="telefono" class="form-label">Telefono</label>
-              <input id="telefono" type="text" class="form-control" ng-model="createForm.telefono" minlength="10" maxlength="10" pattern="^\d+$">
+            <div class="col-md-12 py-2">
+              <label for="email" class="form-label">Motivo de Visita</label>
+              <textarea class="form-control" name="motivo_visita" id="motivo_visita" ng-model="createForm.motivo_visita" rows="3" required></textarea>
             </div>
-            <div class="col-md-6 py-2">
-              <label for="password" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password" ng-model="createForm.password" required placeholder="Mínimo 6 caracteres" minlength="6" maxlength="255">
+            <div class="col-md-12 py-2">
+              <label for="tipo_vehiculo" class="form-label">Tipo de Vehículo</label>
+              <select id="tipo_vehiculo" class="form-control" ng-model="createForm.tipo_vehiculo" required>
+                <option value="" disabled>Selecciona...</option>
+                <option ng-repeat="tipo_vehiculo in tipos_vehiculo" value="@{{ tipo_vehiculo.id }}">
+                  @{{ tipo_vehiculo.nombre }}</option>
+              </select>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group py-2">
             <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
           </div>
         </form>
@@ -129,8 +144,35 @@
         ¿Realmente desea eliminar <span class="font-weight-bold" id="nombre-dato"></span>?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-danger" ng-click="delete(dato)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Registrar Salida -->
+<div class="modal fade" id="salidaModal" tabindex="-1" aria-labelledby="salidaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="salidaModalLabel">Salida de @yield('page-title')</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-column align-items-center">
+          <div>¿Realmente desea dar salida a este vehículo?</div>
+          <div class="">
+            <span class="font-weight-bold">Hora de salida: </span>
+            <span>{{ date('d-M-Y H:i:s')  }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" ng-click="registrarSalida(dato)">Confirmar</button>
       </div>
     </div>
   </div>
@@ -138,7 +180,7 @@
 
 <!-- Modal Detalles -->
 <div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detallesModalLabel">Detalles del Registro</h5>
@@ -147,7 +189,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <img class="detalle-imagen" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
+        <div class="row">
+          <div class="col-md-6 py-2">
+            <img class="detalle-imagen" ng-if="!dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
+            <img class="detalle-imagen" ng-if="dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.imagen_identificacion}}" />
+          </div>
+          <div class="col-md-6 py-2">
+            <img class="detalle-imagen" ng-if="!dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.placas}}" />
+            <img class="detalle-imagen" ng-if="dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.placas}}" />
+          </div>
+        </div>
+        <!-- <img class="detalle-imagen" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" /> -->
         <div class="table-responsive mt-4">
           <table class="table">
             <tbody>
@@ -184,7 +236,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

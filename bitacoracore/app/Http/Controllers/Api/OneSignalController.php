@@ -63,9 +63,9 @@ class OneSignalController extends Controller
                     "en"=> $mensaje." 🧑‍💻",
                     "es"=> $mensaje." 🧑‍💻"
                 ],
-                "url"=> "https://www.itsoft.mx",
-                "big_picture"=> "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png",
-                "ios_attachments"=> [ "id" => "https://calimax.com.mx/wp-content/uploads/2020/04/Calimax-logo.png"]
+                "url"=> "https://mibitacora.enlacetecnologias.mx",
+                "big_picture"=> "https://mibitacora.enlacetecnologias.mx/assets/img/brand/logo.svg",
+                "ios_attachments"=> [ "id" => "https://mibitacora.enlacetecnologias.mx/assets/img/brand/logo.svg"]
             ];
 	
         } else {

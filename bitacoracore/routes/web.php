@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('visitas', [App\Http\Controllers\VisitaController::class, 'store']);
         Route::put('visitas', [App\Http\Controllers\VisitaController::class, 'update']);
         Route::delete("visitas/{id}", [App\Http\Controllers\VisitaController::class, "destroy"]);
+        Route::patch("visitas/{id}", [App\Http\Controllers\VisitaController::class, "registrarSalida"]);
 
         //servicios
         Route::get('servicios', [App\Http\Controllers\ServicioController::class, 'index'])->name('servicios');
