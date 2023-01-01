@@ -9,6 +9,7 @@ use App\Traits\OSNotificationTrait;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -62,11 +63,23 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
+        if ((auth()->user()->bloqueado)) {
+            $this->guardarEvento("Usuario Bloqueado", " intentó iniciar sesión pero está bloqueado ", "S/D",false); //bitacora
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            $mensaje = "Su usuario está bloqueado. Favor de verificar!";
+            return redirect()->route('login')->with("error", $mensaje);
+        }
+
         if ($response = $this->authenticated($request, $this->guard()->user())) {
-            $this->guardarEvento("Iniciar Sesion", "inició sesión desde Api-Rest"); //bitacora
-            $this->sendNotification(auth()->user()->nombre." ".auth()->user()->apellido." ha iniciado sesion desde Web 😃");
             return $response;
         }
+        
+        $perfilId = auth()->user()->perfil->id;
+        $request->session()->put('perfil_id', $perfilId);
+        $this->guardarEvento("Iniciar Sesion", "inicio sesion"); //bitacora
+        $this->sendNotification(auth()->user()->nombre." ".auth()->user()->apellido." ha iniciado sesion desde Web 😃");
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
