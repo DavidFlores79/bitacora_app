@@ -218,12 +218,8 @@
               <tr>
                 <th>Tipo de Vehículo</th>
                 <td><i ng-class="{2:'fas fa-motorcycle fa-2x moto', 1:'fas fa-car-side fa-2x carro', 3:'fas fa-truck-moving fa-2x camion'}[dato.tipo_vehiculo_id]"></i></td>
-                <th>Placas</th>
-                <td>@{{dato.placas | uppercase}}</td>
-              </tr>
-              <tr>
-                <th colspan="2">Recibió</th>
-                <td colspan="2">@{{dato.user.nombre}} @{{dato.user.apellido}} | @{{ dato.servicio.nombre }}</td>
+                <th>Recibió</th>
+                <td>@{{dato.user.nombre}} @{{dato.user.apellido}} | @{{ dato.servicio.nombre }}</td>
               </tr>
               <tr>
                 <th>Fecha Entrada</th>
