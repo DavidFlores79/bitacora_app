@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->string('nombre')->unique();
             $table->boolean('estatus')->default(1);
+            $table->boolean('eliminado')->default(0);
 
             $table->timestamps();
         });

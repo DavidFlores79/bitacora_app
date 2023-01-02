@@ -24,6 +24,7 @@ return new class extends Migration
             $table->bigInteger('perfil_id')->unsigned();
             $table->boolean('bloqueado')->default(0);
             $table->boolean('estatus')->default(1);
+            $table->boolean('eliminado')->default(0);
             $table->string('fecha_baja')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

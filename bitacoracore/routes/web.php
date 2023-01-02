@@ -121,4 +121,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('servicios', [App\Http\Controllers\ServicioController::class, 'update']);
         Route::delete("servicios/{id}", [App\Http\Controllers\ServicioController::class, "destroy"]);
 
+
+        //incidencias
+        Route::get('incidencias', [App\Http\Controllers\IncidenciaController::class, 'index'])->name('incidencias');
+        Route::get('incidencias/getincidencias', [App\Http\Controllers\IncidenciaController::class, 'getIncidencias']);
+        Route::get('incidencias/create', [App\Http\Controllers\IncidenciaController::class, 'create'])->name('incidencias.create');
+        Route::get('incidencias/edit', [App\Http\Controllers\IncidenciaController::class, 'edit']);
+        Route::post('incidencias', [App\Http\Controllers\IncidenciaController::class, 'store']);
+        Route::put('incidencias', [App\Http\Controllers\IncidenciaController::class, 'update']);
+        Route::delete("incidencias/{id}", [App\Http\Controllers\IncidenciaController::class, "destroy"]);
 });

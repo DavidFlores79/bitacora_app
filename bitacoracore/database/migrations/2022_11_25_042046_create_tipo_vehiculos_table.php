@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tipo_vehiculos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->boolean('eliminado')->default(0);
             $table->timestamps();
         });
     }

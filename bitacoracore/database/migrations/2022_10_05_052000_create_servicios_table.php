@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->boolean('estatus')->default(true);
+            $table->boolean('eliminado')->default(false);
             $table->timestamps();
         });
         // Schema::table('servicios', function($table) {

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('descripcion');
             $table->boolean('estatus')->default(true);
+            $table->boolean('eliminado')->default(0);
             $table->timestamps();
         });
     }

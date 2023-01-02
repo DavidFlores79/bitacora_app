@@ -15,16 +15,16 @@
               <label for="imagen_placas" class="form-label">Placas</label>
               <!-- <input class="form-control" type="file" id="imagen_placas" custom-on-change="uploadFilePlacas" accept="image/png, image/jpg, image/jpeg" required> -->
               <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="imagen_placas" custom-on-change="uploadFilePlacas" accept="image/png, image/jpg, image/jpeg" required>
-                  <label class="custom-file-label" for="xml">Escoger Archivo...</label>
+                <input type="file" class="custom-file-input" id="imagen_placas" custom-on-change="uploadFilePlacas" accept="image/png, image/jpg, image/jpeg" required>
+                <label class="custom-file-label" for="xml">Escoger Archivo...</label>
               </div>
               <div class="m-3" id="imagen_placas_preview"></div>
             </div>
             <div class="col-md-6">
               <label for="imagen_identificacion" class="form-label">INE</label>
               <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="imagen_identificacion" custom-on-change="uploadFileId" accept="image/png, image/jpg, image/jpeg" required>
-                  <label class="custom-file-label" for="xml">Escoger Archivo...</label>
+                <input type="file" class="custom-file-input" id="imagen_identificacion" custom-on-change="uploadFileId" accept="image/png, image/jpg, image/jpeg" required>
+                <label class="custom-file-label" for="xml">Escoger Archivo...</label>
               </div>
               <!-- <input class="form-control" type="file" id="imagen_identificacion" custom-on-change="uploadFileId" accept="image/png, image/jpg, image/jpeg" required> -->
               <div class="m-3" id="imagen_identificacion_preview"></div>
@@ -178,6 +178,39 @@
   </div>
 </div>
 
+<!-- Modal Registrar Incidencia -->
+<div class="modal fade" id="incidenciaModal" tabindex="-1" aria-labelledby="incidenciaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="incidenciaModalLabel">Registro de Incidencia <span ng-if="dato">de la Visita <span class="font-weight-bold">@{{ dato.id }}</span> </span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="createIncidencia" ng-submit="registrarIncidencia()" class="was-validated">
+          <div class="row">
+            <div class="col-md-12 py-2">
+              <p ng-if="dato" class="">Esta visita fue registrada en <span class="font-weight-bold">@{{fixDate(dato.fecha_entrada) | date:'MMM d, y h:mm:ss a' }}</span> por <span class="font-weight-bold">@{{ dato.user.nombre }} @{{ dato.user.apellido }}</span></p>
+            </div>
+            <div class="col-md-12 py-2">
+              <label for="email" class="form-label">Describa lo mejor posible la situación:</label>
+              <textarea class="form-control" name="descripcion" id="descripcion" ng-model="createIncidencia.descripcion" rows="3" required title="Debe describir el motivo de la incidencia"></textarea>
+              <small ng-if="!dato">* Se registrará como incidencia general. Si desea registrar una incidencia relacionada con una visita favor de hacerlo desde el detalle de la visita.</small>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 <!-- Modal Detalles -->
 <div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="detallesModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -230,6 +263,27 @@
             </tbody>
           </table>
         </div>
+        <div class="row mx-3">
+          <div class="" ng-if="dato.incidencias.length > 0" >
+            <div class="text-center my-3 font-weight-bold">Incidencias relacionadas</div>
+            <table class="table table-striped">
+              <thead class="etiquetas">
+                <tr>
+                  <th scope="col">Descrición</th>
+                  <th scope="col">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="etiquetas" ng-repeat="incidencia in dato.incidencias track by $index">
+                  <td>@{{incidencia.descripcion}}</td>
+                  <td>@{{fixDate(incidencia.created_at) | date:'MMM d, y h:mm:ss a' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="" ng-click="modalIncidencia(dato)">Registrar Incidencia</a>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -126,6 +126,14 @@
                     </li>
                 @endforeach
 
+                @if(Route::is('registro-visitantes') )
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="" ng-click="modalIncidencia()">
+                            <i class="fas fa-stream" style="color: #f4645f;"></i> Incidencias
+                        </a>
+                    </li>
+                @endif
+
                 {{-- <li class="nav-item ">
                     <a class="nav-link text-white" href="#navbar-examples" data-toggle="collapse"
                         role="button" aria-expanded="false" aria-controls="navbar-examples">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nombre',100);
             $table->string('icono',100)->nullable();
             $table->boolean('estatus')->default(1);
+            $table->boolean('eliminado')->default(0);
 
             $table->timestamps();
         });

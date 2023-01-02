@@ -284,6 +284,79 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
     );
   };
 
+  $scope.modalIncidencia = function (dato) {
+    $scope.dato = dato ?? null;
+    $http({
+      url: "incidencias/create",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then(
+      function successCallback(response) {
+        console.log(response);
+        $("#createIncidencia").trigger("reset");
+        $("#detallesModal").modal("hide");
+        $("#incidenciaModal").modal("show");
+      },
+      function errorCallback(response) {
+        console.log(response);
+        swal(
+          "Mensaje del Sistema",
+          response.data.message,
+          response.data.status
+        );
+      }
+    );
+  }
+
+  $scope.registrarIncidencia = function () {
+    console.log('incidencia');
+    if($scope.dato) $scope.createIncidencia.visita_id = $scope.dato.id;
+    $http({
+      url: "incidencias",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      data: $scope.createIncidencia,
+    }).then(
+      function successCallback(response) {
+        console.log(response);
+        if($scope.dato) {
+          $scope.dato.incidencias = [response.data.dato, ...$scope.dato.incidencias];
+        }
+        $("#createIncidencia").trigger("reset");
+        $("#incidenciaModal").modal("hide");
+        swal(
+          "Mensaje del Sistema",
+          response.data.message,
+          response.data.status
+        );
+      },
+      function errorCallback(response) {
+        console.log(response);
+        //$('#agregarModal').modal('hide');
+
+        if (response.status === 422) {
+          let mensaje = "";
+          for (let i in response.data.errors) {
+            mensaje += response.data.errors[i] + "\n";
+          }
+          swal("Mensaje del Sistema", mensaje, "error");
+        } else {
+          swal(
+            "Mensaje del Sistema",
+            response.data.message,
+            response.data.status
+          );
+        }
+      }
+    );
+  }
+
   $scope.fixDate = function (date) {
     if(date) {
       return new Date(date)

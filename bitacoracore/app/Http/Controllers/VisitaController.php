@@ -40,7 +40,7 @@ class VisitaController extends Controller
         $data = [
             'code' => 200,
             'status' => 'success',
-            'datos' => $visitas->load('user', 'tipo_vehiculo', 'servicio'),
+            'datos' => $visitas->load('user', 'tipo_vehiculo', 'servicio', 'incidencias'),
             'servicios' => Servicio::all(),
             'tipos_vehiculo' => $tipos_vehiculo,
             'mis_servicios' => auth()->user()->servicios,

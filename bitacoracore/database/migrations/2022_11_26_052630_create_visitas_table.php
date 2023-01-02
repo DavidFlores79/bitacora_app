@@ -29,6 +29,7 @@ return new class extends Migration
             // $table->string('fecha_entrada');
             // $table->string('fecha_salida');
             $table->boolean('actualizado');
+            $table->boolean('eliminado')->default(0);
             $table->timestamps();
         });
 

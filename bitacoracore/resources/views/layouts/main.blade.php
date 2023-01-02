@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Hope') }} | @yield('page-title')</title>
+    <title>{{ config('app.name', 'BitacorApp') }} | @yield('page-title')</title>
 
     <!-- Favicon -->
     <link href="{{ asset('assets') }}/img/brand/favicon.png" rel="icon" type="image/png">
