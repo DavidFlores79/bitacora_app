@@ -44,8 +44,28 @@ app.controller("visitas", function ($scope, $http, $httpParamSerializerJQLike) {
 
   $scope.show = (dato) => {
     console.log(dato);
-    $scope.dato = dato;
-    $("#detallesModal").modal("show");
+    $http({
+      url: `visitas/${dato.id}`,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then(
+      function successCallback(response) {
+        console.log(response);
+        $scope.dato = response.data.dato;
+        $("#detallesModal").modal("show");
+      },
+      function errorCallback(response) {
+        console.log(response);
+        swal(
+          "Mensaje del Sistema",
+          response.data.message,
+          response.data.status
+        );
+      }
+    );
   }
 
   $scope.create = function () {

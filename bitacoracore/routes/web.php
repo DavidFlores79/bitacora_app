@@ -107,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
         //visitas
         Route::get('visitas/create', [App\Http\Controllers\VisitaController::class, 'create']);
         Route::get('visitas/edit', [App\Http\Controllers\VisitaController::class, 'edit']);
+        Route::get('visitas/{id}', [App\Http\Controllers\VisitaController::class, 'show']);
         Route::post('visitas', [App\Http\Controllers\VisitaController::class, 'store']);
         Route::put('visitas', [App\Http\Controllers\VisitaController::class, 'update']);
         Route::delete("visitas/{id}", [App\Http\Controllers\VisitaController::class, "destroy"]);

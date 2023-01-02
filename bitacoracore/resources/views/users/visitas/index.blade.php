@@ -81,12 +81,14 @@
           <tbody>
             <tr dir-paginate="dato in datosFiltrados = (datos|filter:searchQuery|orderBy:sortType:sortReverse)|itemsPerPage:pageSize" current-page="currentPage" pagination-id="itemsPagination">
               <td>
-                <img class="imagen_id" ng-if="!dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
-                <img class="imagen_id" ng-if="dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.imagen_identificacion}}" />
+                <img ng-click="show(dato)" src="{{ asset('assets/img/visits/ine.png') }}" alt="" class="imagen_id">
+                <!-- <img class="imagen_id" ng-if="!dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.imagen_identificacion}}" />
+                <img class="imagen_id" ng-if="dato.imagen_identificacion.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.imagen_identificacion}}" /> -->
               </td>
               <td>
-                <img class="imagen_id" ng-if="!dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.placas}}" />
-                <img class="imagen_id" ng-if="dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.placas}}" />
+              <img ng-click="show(dato)" src="{{ asset('assets/img/visits/placa.png') }}" alt="" class="imagen_id">
+                <!-- <img class="imagen_id" ng-if="!dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="data:image/png;base64,@{{dato.placas}}" />
+                <img class="imagen_id" ng-if="dato.placas.includes('data:image/')" ng-click="show(dato)" data-ng-src="@{{dato.placas}}" /> -->
               </td>
               <td style="min-width: 150px;">@{{ dato.nombre_visitante }}</td>
               <td style="min-width: 150px;">@{{ dato.nombre_quien_visita }}</td>
