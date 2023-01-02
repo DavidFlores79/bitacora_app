@@ -32,7 +32,7 @@ class VisitaController extends Controller
                 $data = [
                     "code" => 200,
                     "status" => "success",
-                    "dato" => $dato,
+                    "dato" => $dato->load("user", "tipo_vehiculo", "servicio", "incidencias"),
                 ];
             } else {
                 $data = [
