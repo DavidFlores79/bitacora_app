@@ -131,7 +131,7 @@ class VisitaController extends Controller
                     "code" => 200,
                     "status" => "success",
                     "message" => "Se ha registrado una visita.",
-                    "dato" => $dato->load("servicio", "tipo_vehiculo", "user"),
+                    "dato" => $dato->load("user", "tipo_vehiculo", "servicio", "incidencias"),
                 ];
             }
             $this->guardarEvento("Registrar Visita", "registró visita"); //bitacora
